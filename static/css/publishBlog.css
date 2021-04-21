@@ -1,0 +1,126 @@
+#pth-blog{
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    font-size: 16px;
+}
+
+/* .blog-title{
+    height: 1.5rem;
+} */
+.blog-title-right{
+    height: 36px;
+    line-height: 36px;
+    display: flex;
+    justify-content: start;
+}
+
+.publish-button{
+    height: 36px;
+   
+}
+
+/* #pth-blog  .blog-title{
+    margin-bottom: 20px;
+} */
+
+#pth-blog .blog-content{
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+}
+
+#pth-blog .blog-content .blog-edit,
+#pth-blog .blog-content .blog-edit-preview{
+    width: 100%;
+}
+
+.blog-edit-preview-content{
+    height: calc(100% - 42px) !important;
+    overflow: auto;
+}
+
+/* #pth-blog .blog-content .blog-edit-preview::before{
+    content: "";
+    display: block;
+    height: 40px;
+    border: 1px solid #c9d8db;
+} */
+.blog-content .blog-edit-preview .blog-edit-preview-head{
+    display: block;
+    height: 40px;
+    border: 1px solid #c9d8db;
+}
+/* 弹框设置 */
+
+.el-popover__title{
+    font-size: 22px;
+    font-weight: 550;
+    margin-bottom: 20px;
+}
+.publish-type
+{
+    display: flex;
+    justify-content: start;
+    flex-wrap: wrap;
+}
+.publish-label{
+    display: flex;
+    justify-content: start;
+    flex-wrap: wrap;
+}
+.publish-popver-content {
+    max-width: 21rem;
+}
+.publish-popver-content  dt{
+    margin-bottom: 1rem;
+    font-size: 16px;
+}
+.publish-popver-content dl{
+    box-sizing: border-box;
+    margin: 0 .6rem .8rem 0;
+    padding: .4rem .7rem;
+    font-size: 14px;
+    white-space: nowrap;
+    border: 1px solid #f1f1f1;
+    border-radius: 2px;
+    cursor: pointer;
+}
+#publish-popver-button{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1rem;
+}
+.publish-label{
+    display: flex;
+    justify-content: start;
+}
+.publish-label input{
+    text-align: center;
+    font-size: 14px;
+    border-radius: 2px;
+}
+.publish-label .el-col{
+    width: 102px;
+    margin: 10px 0 10px 0;
+    cursor: pointer;
+}
+
+
+/* 设置富文本编辑器  */
+
+.w-e-toolbar .w-e-menu{
+    width: 35px;
+}
+
+.w-e-text-container{
+    height: calc(100% - 42px) !important;
+}
+
+.w-e-text{
+    box-sizing: border-box;
+}

@@ -1,0 +1,119 @@
+#front-left{
+    background-color: #fff8dc;
+}
+
+.left{
+    box-sizing: border-box;
+    width: 53rem;
+    background-color: #fff;
+    padding: 15px 20px;
+    background-color: #fff8dc;
+}
+.el-pagination{
+    background: #30291c45;
+}
+.article .datebg{
+    position: absolute;
+    text-align: center;
+    /* padding: 0; */
+    transform: translate(-100%,0);
+    left: 0px;
+    width: 56px;
+    height: 85px;
+    background-color: #E2DCC8;
+}
+.article .datebg span{
+    display: block;
+    font-family: Comic Sans MS,Microsoft YaHei,Arial,Helvetica,sans-serif;
+    font-size: 16px;
+    color: #638B60;
+}
+
+.article .datebg span.day{
+    font-size: 24px;
+    color: #435717;
+}
+
+.article{
+    width: 100%;
+    height: 20rem;
+    box-shadow: -3px 5px 5px #888888;
+    background-color: #f5f8fa;
+    border: 1px solid #e4ecf3;
+    border-radius: 4px;
+    text-align: center;
+    transition: all .3s ease;
+    margin-bottom: 15px;
+    padding: 5px 10px;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.article-lable{
+    background: #befdcc;
+    line-height: 2rem;
+    overflow: hidden;
+    position: relative;
+    border-top: 3px solid #b0aeb0;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    font-size: 12px;
+    /* 控制缩放比例 只限部分浏览器 */
+    zoom: 1;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 1rem;
+}
+
+.article-lable-type{
+    display: flex;
+    justify-content: flex-start;
+}
+
+.article-lable-type dd {
+    margin: 0 4px 0 2px;
+}
+
+.article-title{
+    font-size: 20px;
+    line-height: 36px;
+    color: #f6a101;
+    font-family: 微软雅黑;
+    font-weight: normal;
+    text-indent: 4px;
+    margin-top: 1rem;
+}
+
+.article-content{
+    overflow: hidden;
+    height: 11rem;
+}
+
+.article-footer{
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 1rem;
+    font-family: Comic Sans MS,Microsoft YaHei,Arial,Helvetica,sans-serif;
+    position: absolute;
+    bottom: 0px;
+}
+
+.article-footer-left{
+    font-size: 14px;
+    text-indent: 0;
+    color: #435717;
+}
+
+.article-footer-right{
+    color: #f59901;
+    font-size: 16px;
+}
+.article-title{
+    text-align: left;
+    text-shadow: 2px 2px 3px #222222;
+    margin: 0;
+    padding: 0;
+}
