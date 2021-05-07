@@ -1,13 +1,14 @@
 <template>
   <div id="app">
-    <!-- <commonHeader></commonHeader> -->
+    <!-- <commonHeader></commonHeader>
 
-    <!-- <commonFront></commonFront>
+    <commonFront></commonFront>
     <router-view>
     </router-view> -->
 
-    <publishBlog></publishBlog>
+    <!-- <publishBlog></publishBlog> -->
     <!-- <commonFooter></commonFooter> -->
+    <personalDocManager></personalDocManager>
   </div>
 </template>
 
@@ -16,6 +17,7 @@
   import commonFooter from '@/components/common/footer';
   import commonFront from '@/components/front';
   import publishBlog from '@/components/publishBlog/publishBlog'
+  import personalDocManager from './components/personalDocManager.vue'
 
   export default {
     name: 'App',
@@ -24,6 +26,7 @@
       'commonFooter': commonFooter,
       'commonFront': commonFront,
       'publishBlog': publishBlog,
+      personalDocManager
     },
     data() {
       return {

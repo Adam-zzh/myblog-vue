@@ -18,7 +18,7 @@
           <router-link to="/home" active-class="_active">首页</router-link>
         </div>
         <div class="menus_item">
-          <router-link to="/problemComnunity">问题社区</router-link>
+          <router-link to="/documentSystem">文档系统</router-link>
         </div>
         <div class="menus_item">
           <router-link to="/proposal">反馈建议</router-link>

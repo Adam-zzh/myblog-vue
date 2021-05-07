@@ -95,7 +95,7 @@
         </div>
       </div>
     </div>
-
+    <!-- layout="total, sizes, prev, pager, next, jumper" -->
     <div class="block">
       <el-pagination
         background
@@ -105,7 +105,7 @@
         :page-sizes="[5,10, 20, 50]"
         :page-size="15"
         :pager-count="5"
-        layout="total, sizes, prev, pager, next, jumper"
+        layout="total, prev, pager, next, jumper"
         :total="100">
       </el-pagination>
     </div>
