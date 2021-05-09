@@ -15,6 +15,7 @@ import 'element-ui/lib/theme-chalk/index.css';
 import Axios from 'axios';
 import './assets/fonts/iconfont.css';
 
+// import VModal from 'vue-js-modal'
 
 Vue.config.productionTip = false
 
@@ -23,6 +24,7 @@ Vue.config.productionTip = false
 Vue.use(vuex)
 Vue.use(vueSwiper)  
 Vue.use(ElementUI);
+// Vue.use(VModal)
 
 
 Vue.prototype.$ajax = Axios;

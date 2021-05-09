@@ -8,7 +8,7 @@
 
     <!-- <publishBlog></publishBlog> -->
     <!-- <commonFooter></commonFooter> -->
-    <personalDocManager></personalDocManager>
+    <login></login>
   </div>
 </template>
 
@@ -18,6 +18,7 @@
   import commonFront from '@/components/front';
   import publishBlog from '@/components/publishBlog/publishBlog'
   import personalDocManager from './components/personalDocManager.vue'
+  import login from './components/login/login.vue'
 
   export default {
     name: 'App',
@@ -26,7 +27,8 @@
       'commonFooter': commonFooter,
       'commonFront': commonFront,
       'publishBlog': publishBlog,
-      personalDocManager
+      personalDocManager,
+      login
     },
     data() {
       return {
