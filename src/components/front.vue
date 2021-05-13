@@ -66,7 +66,7 @@
   }
 </script>
 <style>
-#front{
-  /* background-color: #2c3e50; */ 
-}
+/* #front{
+   background-color: #2c3e50; 
+} */
 </style>
