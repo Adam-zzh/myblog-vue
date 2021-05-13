@@ -10,7 +10,29 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
+    proxyTable: {
+      //直接路由到admin
+      // '/admin': {
+      //   target: 'http://localhost:8011',
+      //   changeOrigin: true,
+      //   pathRewrite: {
+      //     '^/admin': ''
+      //   }
+      // },
+      // // 转到nginx 再由nginx路由到admin
+      // '/user': {
+      //   target: 'http://localhost:8021',
+      //   changeOrigin: true,
+      //   pathRewrite: {
+      //     '^/user': '/user'
+      //   }
+      // }
+      '/': {
+        target: 'http://localhost:8021',
+        changeOrigin: true,
+        pathRewrite: {}
+      }
+    },
 
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST
@@ -20,7 +42,7 @@ module.exports = {
     notifyOnErrors: true,
     poll: false, // https://webpack.js.org/configuration/dev-server/#devserver-watchoptions-
 
-    
+
     /**
      * Source Maps
      */

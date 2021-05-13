@@ -15,7 +15,7 @@
       <div class="menus_items">
         <div class="menus_item">
           <!-- 使用 router-link 组件来导航. -->
-          <router-link to="/home" active-class="_active">首页</router-link>
+          <router-link to="/front" active-class="_active">首页</router-link>
         </div>
         <div class="menus_item">
           <router-link to="/documentSystem">文档系统</router-link>

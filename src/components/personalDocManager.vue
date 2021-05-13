@@ -58,11 +58,10 @@
   .el-aside {
     border-right: 1px solid #ccc;
     height: 100%;
-    padding-bottom: 100px;
+    min-height: calc(100vh - 8.6rem) !important;
   }
 
   .hideSideClass{
       width: 0px !important;
   }
-
 </style>

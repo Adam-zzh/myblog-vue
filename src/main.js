@@ -12,7 +12,13 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/display.css';
 import 'element-ui/lib/theme-chalk/index.css';
 
-import Axios from 'axios';
+import axios from 'axios';
+import VueAxios from 'vue-axios'
+
+//全局为axios添加request和response的拦截器。用于jwt token验证
+import http from '../http'
+
+// alibaba 字体
 import './assets/fonts/iconfont.css';
 
 // import VModal from 'vue-js-modal'
@@ -24,10 +30,29 @@ Vue.config.productionTip = false
 Vue.use(vuex)
 Vue.use(vueSwiper)  
 Vue.use(ElementUI);
+Vue.use(VueAxios, axios)
 // Vue.use(VModal)
 
+// 配置axios请求基本地址
+// axios.defaults.baseURL = 'http://localhost:8021'
 
-Vue.prototype.$ajax = Axios;
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+      // * 对于需要auth的路径
+      // * 没有token信息，redirect to login
+      if (!localStorage.token) {
+          next({
+              path: '/login',
+              query: {redirect: to.fullPath}
+          })
+      } else {
+          next()
+      }
+  } else {
+      next() // 确保一定要调用 next()
+  }
+})
+
 
 const store = new vuex.Store({
   state: {

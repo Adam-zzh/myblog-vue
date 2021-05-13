@@ -5,10 +5,10 @@
     padding: 1rem 2rem;
     background-size:cover;
     height: 4.6rem;
-    position: fixed;
     z-index: 30;
     display: flex;
     justify-content: center;
+    background-color:rgba(0,0,0);
 }
 
 .header-enditCenter{
@@ -57,19 +57,20 @@
 
 /** 设置滚动之后导航栏信息 START **/
 .header-scrolled {
+    position: fixed;
     background: #26282c;
     box-shadow: 0 0 4px rgba(0,0,0,.5);
     display: flex;
     justify-content: center;
 }   
 
-.header-scrolled .menus_item:hover a, .header-scrolled .menus_item .router-link-active{
+.header .menus_item:hover a, .header .menus_item .router-link-exact-active{
     color: #f2b535;
     border-bottom: 4px solid #f2b535;
-    background: rgba(0,0,0,.1)
+    background: #30313375;
 }
 
-.header-scrolled .menus_item:hover a:not(.router-link-active){
+.header .menus_item:hover a:not(.router-link-exact-active){
     border-bottom: 0px;
 }
 
