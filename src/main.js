@@ -13,7 +13,11 @@ import 'element-ui/lib/theme-chalk/display.css';
 import 'element-ui/lib/theme-chalk/index.css';
 
 import axios from 'axios';
-import VueAxios from 'vue-axios'
+import VueAxios from 'vue-axios';
+
+// makedown编辑器
+import mavonEditor from 'mavon-editor';
+
 
 //全局为axios添加request和response的拦截器。用于jwt token验证
 import http from '../http'
@@ -29,8 +33,9 @@ Vue.config.productionTip = false
 //使用插件
 Vue.use(vuex)
 Vue.use(vueSwiper)  
-Vue.use(ElementUI);
+Vue.use(ElementUI)
 Vue.use(VueAxios, axios)
+Vue.use(mavonEditor)
 // Vue.use(VModal)
 
 // 配置axios请求基本地址

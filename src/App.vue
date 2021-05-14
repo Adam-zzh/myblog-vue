@@ -1,34 +1,32 @@
 <template>
   <div id="app">
-    <commonHeader></commonHeader>
+    <!-- <commonHeader></commonHeader>
     <transition>
       <router-view class="myblog-center"></router-view>
     </transition>
-    <!-- <publishBlog></publishBlog> -->
     <commonFooter></commonFooter>
-    <login :modelShow="login_isShow"></login>
+    <login :modelShow="login_isShow"></login> -->
+
+    <blogDetail></blogDetail>
+   
   </div>
 </template>
 
 <script>
   import commonHeader from '@/components/common/header';
   import commonFooter from '@/components/common/footer';
-  import login from '@/components/login/login.vue';
-
-  // // js文件
-  // import threeJs from './assets/threejs/js/three.min.js';
-  // import datJs from './assets/threejs/js/dat.gui.min.js';
-  // import StatsJs from './assets/threejs/js/Stats.min.js';
-  // import jqJs from './assets/threejs/js/jquery.min.js';
-  // import indexJs from './assets/threejs/js/index.js';
-  // import bkJs from './assets/js/bk.js';
+  import login from '@/components/login/login';
+  import blogDetail from '@/components/front/blogDetail/blogDetail';
+  import publishBlog from '@/components/publishBlog/publishBlog';
 
   export default {
     name: 'App',
     components: {
       'commonHeader': commonHeader,
       'commonFooter': commonFooter,
-      login
+      login,
+      blogDetail,
+      publishBlog
     },
     data() {
       return {

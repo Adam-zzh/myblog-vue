@@ -3,7 +3,7 @@
     <div class="blog-title">
       <el-row :gutter="20">
         <el-col :span="16">
-          <el-input type="text" placeholder="请输入文章标题" v-model="text" maxlength="20" show-word-limit clearable
+          <el-input type="text" placeholder="请输入文章标题" v-model="article.title" maxlength="20" show-word-limit clearable
             size="medium" />
         </el-col>
         <el-col :span="8">
@@ -59,16 +59,16 @@
       </el-row>
     </div>
 
-
-
     <div class="blog-content">
-      <div class="blog-edit">
+      <!-- <div class="blog-edit">
         <my-editor style='height: 42rem;' v-model='content' :disabled='wangDisabled'></my-editor>
       </div>
       <div class="blog-edit-preview" style="height: 42rem;">
         <div class="blog-edit-preview-head"></div>
         <div class="blog-edit-preview-content" v-html='wangValue' style="border-bottom: 1px solid #c9d8db;"></div>
-      </div>
+      </div> -->
+      <mavon-editor :toolbars="toolbars" v-model="article.content" @imgAdd="handleEditorImgAdd"
+        @imgDel="handleEditorImgDel" @change="change" ref=md />
     </div>
   </div>
   </div>
@@ -79,26 +79,94 @@
   export default {
     name: "publishBlog",
     components: {
-      myEditor
+      // myEditor
     },
     data() {
       return {
-        content: '',
-        wangDisabled: false,
-        text: '',
+        toolbars: {
+          bold: true, // 粗体
+          italic: true, // 斜体
+          header: true, // 标题
+          underline: true, // 下划线
+          strikethrough: true, // 中划线
+          mark: true, // 标记
+          superscript: true, // 上角标
+          subscript: true, // 下角标
+          quote: true, // 引用
+          ol: true, // 有序列表
+          ul: true, // 无序列表
+          link: true, // 链接
+          imagelink: true, // 图片链接
+          code: false, // code
+          table: true, // 表格
+          fullscreen: true, // 全屏编辑
+          readmodel: true, // 沉浸式阅读
+          htmlcode: true, // 展示html源码
+          help: true, // 帮助
+          /* 1.3.5 */
+          undo: true, // 上一步
+          redo: true, // 下一步
+          trash: true, // 清空
+          save: true, // 保存（触发events中的save事件）
+          /* 1.4.2 */
+          navigation: true, // 导航目录
+          /* 2.1.8 */
+          alignleft: true, // 左对齐
+          aligncenter: true, // 居中
+          alignright: true, // 右对齐
+          /* 2.2.1 */
+          subfield: true, // 单双栏模式
+          preview: true, // 预览
+        },
+        article: {
+          blogMdContent: "我是makedown",
+          blogContent: "我是html",
+          title: ""
+        },
         list: []
       }
     },
     methods: {
       addInput() {
         this.list.push("");
+      },
+      handleEditorImgAdd(pos, $file) {
+        //makedown添加图片
+        var formdata = new FormData();
+        formdata.append('file', $file);
+        // this.$axios
+        //   .post("http://localhost:8000/blogs/image/upload/", formdata)
+        //   .then(res => {
+        //     var url = res.data.data;
+        //     this.$refs.md.$img2Url(pos, url); //这里就是引用ref = md 然后调用$img2Url方法即可替换地址
+        //   });
+      },
+      handleEditorImgDel() {
+        //makedown删除图片
+      },
+      change(value, render) {
+        this.article.blogMdContent = value;
+        this.article.blogContent = render;
+        console.log(this.article.blogMdContent)
+        console.log("===========")
+        console.log(this.article.blogContent)
       }
-
     }
   }
 
 </script>
 <style>
   @import url(../../../static/css/publishBlog.css);
-
+  @import 'mavon-editor/dist/css/index.css';
+  .blog-title{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 5px;
+  }
+  #pth-blog{
+    height: calc(100vh - 8.6rem);
+  }
+  .markdown-body{
+    width: 100vw;
+  }
 </style>

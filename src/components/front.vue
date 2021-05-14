@@ -1,17 +1,20 @@
 <template>
   <div id="front">
-    <div class="swiper-carouse">
+    <!-- <div class="swiper-carouse">
       <swiper :options="swiperOption" class="swiper-container clearFloat" ref="mySwiper">
-        <!-- slides -->
+        slides
         <swiper-slide class="swiper-item" v-for="(item, index) of banners" :key="index">
           <img class="swiper-img" :src="item" alt="" />
         </swiper-slide>
-        <!-- Optional controls ,显示小点-->
+        Optional controls ,显示小点
         <div class="swiper-pagination" slot="pagination" v-if="banners.length > 1"></div>
-        <!-- 左右切换 -->
+        左右切换
         <div class="swiper-button-prev" slot="button-prev"></div>
         <div class="swiper-button-next" slot="button-next"></div>
       </swiper>
+    </div> -->
+    <div class="bg-front">
+
     </div>
     <div class="app-main">
       <commonMain></commonMain>
@@ -64,9 +67,18 @@
       this.swiper.slideTo(3, 1000, true)
     }
   }
+
 </script>
 <style>
-/* #front{
+  /* #front{
    background-color: #2c3e50; 
 } */
+  .bg-front {
+    background: url('/static/images/personal/boy.png') top center no-repeat;
+    background-size: cover;
+    background-size: cover;
+    width: 100%;
+    height: 30rem;
+  }
+
 </style>

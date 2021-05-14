@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div style="color: blanchedalmond;">
         <h1>{{title}}</h1>
     </div>
 </template>
