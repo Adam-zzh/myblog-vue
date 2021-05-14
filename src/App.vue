@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <commonHeader></commonHeader>
     <!-- <commonHeader></commonHeader>
     <transition>
       <router-view class="myblog-center"></router-view>
@@ -8,6 +9,7 @@
     <login :modelShow="login_isShow"></login> -->
 
     <blogDetail></blogDetail>
+    <commonFooter></commonFooter>
    
   </div>
 </template>
