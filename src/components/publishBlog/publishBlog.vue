@@ -74,7 +74,7 @@
   </div>
 </template>
 <script>
-  import myEditor from '../util/editor/wang-editor';
+  // import myEditor from '../util/editor/wang-editor';
 
   export default {
     name: "publishBlog",

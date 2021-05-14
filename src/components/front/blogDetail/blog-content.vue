@@ -1,6 +1,6 @@
 <template>
   <div>
-    <article class="markdown-body" style="text-align:left" v-html="content"></article>
+    <article id="markdown-body" class="markdown-body" style="text-align:left" v-html="content"></article>
   </div>
 </template>
 <script>
@@ -37,7 +37,7 @@
     min-width: 200px;
     max-width: 980px;
     margin: 0 auto;
-    padding: 45px;
+    padding: 15px 30px;
   }
 
 </style>
