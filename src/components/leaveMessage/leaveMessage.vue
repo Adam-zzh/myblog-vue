@@ -71,7 +71,8 @@
     color: wheat;
     width: 60%;
     box-shadow: 5px 5px 10px #888;
-    background: tomato;
+    /* background: tomato; */
+    background: #ff6347c7;
     font-size: 16px;
     padding: 20px 100px;
     min-height: calc(100vh - 8.6rem);

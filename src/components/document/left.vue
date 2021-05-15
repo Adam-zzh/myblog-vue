@@ -68,6 +68,6 @@
   };
 
 </script>
-<style scoped>
+<style>
   @import url("../../../static/css/document/left.css");
 </style>
