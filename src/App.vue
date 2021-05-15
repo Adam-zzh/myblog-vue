@@ -1,16 +1,11 @@
 <template>
   <div id="app">
     <commonHeader></commonHeader>
-    <!-- <commonHeader></commonHeader>
     <transition>
       <router-view class="myblog-center"></router-view>
     </transition>
     <commonFooter></commonFooter>
-    <login :modelShow="login_isShow"></login> -->
-
-    <blogDetail></blogDetail>
-    <commonFooter></commonFooter>
-   
+    <login :modelShow="login_isShow"></login>
   </div>
 </template>
 
@@ -20,6 +15,7 @@
   import login from '@/components/login/login';
   import blogDetail from '@/components/front/blogDetail/blogDetail';
   import publishBlog from '@/components/publishBlog/publishBlog';
+  import leaveMessage from '@/components/leaveMessage/leaveMessage';
 
   export default {
     name: 'App',
@@ -28,7 +24,8 @@
       'commonFooter': commonFooter,
       login,
       blogDetail,
-      publishBlog
+      publishBlog,
+      leaveMessage
     },
     data() {
       return {
@@ -65,7 +62,7 @@
     -ms-scroll-snap-x: revert;
     aspect-ratio: auto 1500 / 1500;
   }
- 
+
 
   /* 轮播图  */
   .swiper-carouse {
@@ -99,6 +96,12 @@
 
   .myblog-center {
     min-height: calc(100vh - 8.6rem);
+  }
+
+  .editCenter{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   canvas {
