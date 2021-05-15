@@ -37,6 +37,7 @@
         <MainContent :content="article.content"></MainContent>
       </div>
       <div class="navigation">
+          <MainComment></MainComment>
       </div>
     </div>
 
@@ -44,6 +45,7 @@
 </template>
 <script>
   import MainContent from './blog-content';
+  import MainComment from './blog-comment';
   export default {
     data() {
       return {
@@ -59,7 +61,7 @@
       }
     },
     components: {
-      MainContent
+      MainContent, MainComment
     },
     methods: {
       createCatalog() {
@@ -82,7 +84,6 @@
             a.style.fontSize = 20 * (1 - 0.05 * Number(e.nodeName.substring(1, 2))) + 'px';
             a.innerHTML = e.textContent;
             li.appendChild(a);
-            console.log(li)
             catalog.appendChild(li);
           }
         })
@@ -146,7 +147,7 @@
     background-color: yellowgreen;
     width: 360px;
     height: 100%;
-    overflow: visible;
+    overflow: scroll;
     padding: 20px;
     margin-left: 20px;
     margin-right: 20px;
