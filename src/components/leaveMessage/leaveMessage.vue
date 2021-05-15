@@ -1,30 +1,35 @@
 <template>
-  <div id="leaveMessage">
-    <h3>留言板</h3>
-    <div class="row">
-      <label><em>* </em>类别：</label>
-      <ul>
-        <li v-for="(item,index) of types" ::key="index">
-          <el-button type="primary" plain v-html="item.name" id="item.id"></el-button>
-        </li>
-      </ul>
-    </div>
-    <div class="message">
-      <label
-        style="text-align: left; width: 100%;display: block;text-align: left; padding-left: 60px;margin-bottom: 10px;">
-        <em>* </em>留言内容：
-      </label>
-      <mavon-editor :subfield="toolbars.subfield" :toolbarsFlag="toolbars.toolbarsFlag" :codeStyle="toolbars.codeStyle"
-        v-model="leaveMessage.message" placeholder="你是我一生只会遇见一次的惊喜 ..." class="myTextArea" />
-    </div>
-    <div class="row">
-      <label style="margin-left: 10px;">联系方式：</label>
-      <ul style="justify-content: flex-start;">
-        <li><el-input v-model="leaveMessage.concat" placeholder="请输入内容"></el-input></li>
-      </ul>
-    </div>
-    <div class="form-submit">
-      <el-button type="primary" size="medium" class="submitButton">提交留言</el-button>
+  <div class="editCenter">
+    <div id="leaveMessage">
+      <h3>留言板</h3>
+      <div class="row">
+        <label><em>* </em>类别：</label>
+        <ul>
+          <li v-for="(item,index) of types" ::key="index">
+            <el-button type="primary" plain v-html="item.name" id="item.id"></el-button>
+          </li>
+        </ul>
+      </div>
+      <div class="message">
+        <label
+          style="text-align: left; width: 100%;display: block;text-align: left; padding-left: 60px;margin-bottom: 10px;">
+          <em>* </em>留言内容：
+        </label>
+        <mavon-editor :subfield="toolbars.subfield" :toolbarsFlag="toolbars.toolbarsFlag"
+          :codeStyle="toolbars.codeStyle" v-model="leaveMessage.message" placeholder="你是我一生只会遇见一次的惊喜 ..."
+          class="myTextArea" />
+      </div>
+      <div class="row">
+        <label style="margin-left: 10px;">联系方式：</label>
+        <ul style="justify-content: flex-start;">
+          <li>
+            <el-input v-model="leaveMessage.concat" placeholder="请输入内容"></el-input>
+          </li>
+        </ul>
+      </div>
+      <div class="form-submit">
+        <el-button type="primary" size="medium" class="submitButton">提交留言</el-button>
+      </div>
     </div>
   </div>
 </template>
@@ -51,10 +56,10 @@
           codeStyle: 'tomorrow-night',
           code: true
         },
-        
+
         leaveMessage: {
           message: '',
-          concat:'1561231115',
+          concat: '1561231115',
         }
       }
     },
@@ -69,6 +74,8 @@
     background: tomato;
     font-size: 16px;
     padding: 20px 100px;
+    min-height: calc(100vh - 8.6rem);
+    overflow-y: scroll;
   }
 
   #leaveMessage .myTextArea {

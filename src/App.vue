@@ -2,7 +2,9 @@
   <div id="app">
     <commonHeader></commonHeader>
     <transition>
-      <router-view class="myblog-center"></router-view>
+      
+        <router-view class="myblog-center"></router-view>
+
     </transition>
     <commonFooter></commonFooter>
     <login :modelShow="login_isShow"></login>
@@ -13,9 +15,8 @@
   import commonHeader from '@/components/common/header';
   import commonFooter from '@/components/common/footer';
   import login from '@/components/login/login';
-  import blogDetail from '@/components/front/blogDetail/blogDetail';
-  import publishBlog from '@/components/publishBlog/publishBlog';
-  import leaveMessage from '@/components/leaveMessage/leaveMessage';
+
+
 
   export default {
     name: 'App',
@@ -23,9 +24,7 @@
       'commonHeader': commonHeader,
       'commonFooter': commonFooter,
       login,
-      blogDetail,
-      publishBlog,
-      leaveMessage
+
     },
     data() {
       return {
@@ -98,10 +97,11 @@
     min-height: calc(100vh - 8.6rem);
   }
 
-  .editCenter{
+  .editCenter {
     display: flex;
     flex-direction: column;
     align-items: center;
+   
   }
 
   canvas {
