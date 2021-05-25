@@ -85,6 +85,19 @@
   #myblog-login .el-dialog__header {
     padding: 20px 20px 10px;
     padding: 0;
+  }    
+  #myblog-login .el-dialog__body{
+    box-shadow: -3px 1px 2px 1px #333;
+  }
+  #myblog-login .el-dialog__body::before {
+    content: '';
+    background-color: aliceblue;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: calc(50% - 30px);
+    background: #6686ff0f;
   }
 
   #myblog-login .el-dialog {
@@ -93,6 +106,11 @@
     background-size: calc(50% - 30px) 100%;
     background-position: right;
   }
+
+  #myblog-login .login-dialog{
+    background-color: #60626699;
+  }
+ 
 
   #myblog-login .el-form-item__label {
     color: black;

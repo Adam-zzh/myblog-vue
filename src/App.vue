@@ -2,9 +2,7 @@
   <div id="app">
     <commonHeader></commonHeader>
     <transition>
-      
         <router-view class="myblog-center"></router-view>
-
     </transition>
     <commonFooter></commonFooter>
     <login :modelShow="login_isShow"></login>
