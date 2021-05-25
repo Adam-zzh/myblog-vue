@@ -1,80 +1,82 @@
 <template>
   <div id="pth-blog">
     <div class="blog-title">
-      <el-row :gutter="20">
-        <el-col :span="16">
-          <el-input type="text" placeholder="请输入文章标题" v-model="article.title" maxlength="20" show-word-limit clearable
-            size="medium" />
-        </el-col>
-        <el-col :span="8">
-          <div class="blog-title-right">
-            <!-- 发布弹出框 START -->
-            <el-popover placement="bottom" width="28rem" trigger="click" title="发布文章" class="publish-popver">
-              <div class="publish-popver-content">
-                <dt>分类</dt>
-                <div class="publish-type">
-                  <dl>生活感悟</dl>
-                  <dl>游戏天地</dl>
-                  <dl>数学天地</dl>
-                  <dl>java</dl>
-                  <dl>前端</dl>
+      <el-form :model="article" :rules="rules" ref="publishBlog">
+        <el-row :gutter="20">
+          <el-col :span="16">
+            <el-form-item prop="title">
+              <el-input type="text" placeholder="请输入文章标题" v-model="article.title" maxlength="20" show-word-limit
+                clearable size="medium" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <div class="blog-title-right">
+              <!-- 发布弹出框 START -->
+              <el-popover placement="bottom" width="28rem" trigger="click" title="发布文章" class="publish-popver">
+                <div class="publish-popver-content">
+                  <dt>分类</dt>
+                  <div class="publish-type">
+                    <dl>生活感悟</dl>
+                    <dl>游戏天地</dl>
+                    <dl>数学天地</dl>
+                    <dl>java</dl>
+                    <dl>前端</dl>
 
-                  <dl>生活感悟</dl>
-                  <dl>游戏天地</dl>
-                  <dl>数学天地</dl>
-                  <dl>java</dl>
-                  <dl>前端</dl>
+                    <dl>生活感悟</dl>
+                    <dl>游戏天地</dl>
+                    <dl>数学天地</dl>
+                    <dl>java</dl>
+                    <dl>前端</dl>
 
-                  <dl>生活感悟</dl>
-                  <dl>游戏天地</dl>
-                  <dl>数学天地</dl>
-                  <dl>java</dl>
-                  <dl>前端</dl>
+                    <dl>生活感悟</dl>
+                    <dl>游戏天地</dl>
+                    <dl>数学天地</dl>
+                    <dl>java</dl>
+                    <dl>前端</dl>
+                  </div>
+
+                  <dt>标签</dt>
+                  <div class="publish-label">
+                    <el-row :gutter="20">
+                      <el-form-item prop="articleLabels">
+                        <el-col :span="8" v-for="(item, index) in article.articleLabels" :key="index">
+                          <el-input placeholder="标签" v-model="item.value" clearable>
+                          </el-input>
+                        </el-col>
+                      </el-form-item>
+                      <el-col :span="8">
+                        <el-button type="info" plain @click="addInput">添加标签</el-button>
+                      </el-col>
+                    </el-row>
+                    </el-input>
+
+                  </div>
+                  <div id="publish-popver-button">
+                    <el-button type="primary" plain @click="publishArticle('publishBlog')">确定并发布</el-button>
+                  </div>
                 </div>
-
-                <dt>标签</dt>
-                <div class="publish-label">
-                  <el-row :gutter="20">
-                    <el-col :span="8" v-for="(item, index) in list" :key="index">
-                      <el-input placeholder="标签" v-model="list[index]" clearable>
-                      </el-input>
-                    </el-col>
-                    <el-col :span="8">
-                      <el-button type="info" plain @click="addInput">添加标签</el-button>
-                    </el-col>
-                  </el-row>
-                  </el-input>
-
-                </div>
-                <div id="publish-popver-button">
-                  <el-button type="primary" plain>确定并发布</el-button>
-                </div>
-              </div>
-              <el-button type="primary" slot="reference" class="publish-button"> <span
-                  class="iconfont icon-publish "></span> 发布文章</el-button>
-            </el-popover>
-            <!-- 发布弹出框 end-->
-          </div>
-        </el-col>
-      </el-row>
+                <el-button type="primary" slot="reference" class="publish-button"> <span
+                    class="iconfont icon-publish "></span> 发布文章</el-button>
+              </el-popover>
+              <!-- 发布弹出框 end-->
+            </div>
+          </el-col>
+        </el-row>
+      </el-form>
     </div>
 
     <div class="blog-content">
-      <!-- <div class="blog-edit">
-        <my-editor style='height: 42rem;' v-model='content' :disabled='wangDisabled'></my-editor>
-      </div>
-      <div class="blog-edit-preview" style="height: 42rem;">
-        <div class="blog-edit-preview-head"></div>
-        <div class="blog-edit-preview-content" v-html='wangValue' style="border-bottom: 1px solid #c9d8db;"></div>
-      </div> -->
-      <mavon-editor :toolbars="toolbars" v-model="article.content" @imgAdd="handleEditorImgAdd"
-        @imgDel="handleEditorImgDel" @change="change" ref=md />
+      <mavon-editor :toolbars="toolbars" @imgAdd="handleEditorImgAdd" @imgDel="handleEditorImgDel" @change="change"
+        ref=md />
     </div>
   </div>
   </div>
 </template>
 <script>
-  // import myEditor from '../util/editor/wang-editor';
+  import {
+    isInteger,
+    isNotNull
+  } from '../util/validateUtil';
 
   export default {
     name: "publishBlog",
@@ -119,16 +121,36 @@
           preview: true, // 预览
         },
         article: {
-          blogMdContent: "我是makedown",
-          blogContent: "我是html",
-          title: ""
+          content: "",
+          title: "",
+          articleLabels: []
         },
-        list: []
+        rules: {
+          content: [{
+            required: true,
+            message: '请输入文章内容',
+            trigger: 'blur'
+          }],
+          title: [{
+            required: true,
+            message: '请输入文章标题',
+            trigger: 'blur'
+          }],
+          articleLabels: [{
+            required: true,
+            message: '请添加至少一个标签',
+            trigger: 'blur'
+          },{
+            validator: isNotNull,
+            trigger: 'blur'
+          }]
+        }
+
       }
     },
     methods: {
       addInput() {
-        this.list.push("");
+        this.article.articleLabels.push({});
       },
       handleEditorImgAdd(pos, $file) {
         //makedown添加图片
@@ -145,11 +167,41 @@
         //makedown删除图片
       },
       change(value, render) {
-        this.article.blogMdContent = value;
-        this.article.blogContent = render;
-        console.log(this.article.blogMdContent)
-        console.log("===========")
-        console.log(this.article.blogContent)
+        // this.article.blogMdContent = value;
+        this.article.content = render;
+
+      },
+      publishArticle(formData) {
+        this.$refs[formData].validate((valid) => {
+          if (!valid) {
+            this.$message({
+              showClose: true,
+              message: '请填写完整表单',
+              type: 'error'
+            });
+            return false;
+          } else {
+            //发布文章
+            this.axios
+              .post("http://localhost:8000/front/articleController/saveOrUpdArticle", this.article)
+              .then((response) => {
+                this.$message({
+                  showClose: true,
+                  message: '发布成功',
+                  type: 'success'
+                });
+              })
+              .catch((response) => {
+                this.$message({
+                  showClose: true,
+                  message: '发布失败',
+                  type: 'error'
+                });
+              })
+          }
+        });
+
+
       }
     }
   }
@@ -158,15 +210,19 @@
 <style>
   @import url(../../../static/css/publishBlog.css);
   @import 'mavon-editor/dist/css/index.css';
-  .blog-title{
+
+  .blog-title {
     display: flex;
     justify-content: center;
     margin-bottom: 5px;
   }
-  #pth-blog{
+
+  #pth-blog {
     height: calc(100vh - 8.6rem);
   }
-  .markdown-body{
+
+  .markdown-body {
     width: 100vw;
   }
+
 </style>
