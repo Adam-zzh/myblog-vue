@@ -5,28 +5,22 @@
         <router-view class="myblog-center"></router-view>
     </transition>
     <commonFooter></commonFooter>
-    <login :modelShow="login_isShow"></login>
   </div>
 </template>
 
 <script>
   import commonHeader from '@/components/common/header';
   import commonFooter from '@/components/common/footer';
-  import login from '@/components/login/login';
-
-
 
   export default {
     name: 'App',
     components: {
       'commonHeader': commonHeader,
       'commonFooter': commonFooter,
-      login,
-
     },
     data() {
       return {
-        login_isShow: false
+        login_isShow: true
       }
     },
     computed: {},

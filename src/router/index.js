@@ -14,6 +14,9 @@ export default new vueRouter({
       path: '/',
       component: commonFront
     }, {
+      path: '/login',
+      component: login
+    },{
       path: '/front',
       name: 'front',
       component: commonFront
@@ -21,7 +24,10 @@ export default new vueRouter({
     {
       path: '/publishBlog',
       name: 'publishBlog',
-      component: publishBlog
+      component: publishBlog,
+      meta: {
+        requiresAuth: true // 添加该字段，表示进入这个路由是需要登录的
+      }
     },
     {
       path: '/blogDetail',

@@ -172,6 +172,15 @@
 
       },
       publishArticle(formData) {
+        if(this.article.content == ''){
+          this.$message({
+              showClose: true,
+              message: '请填写文章内容',
+              type: 'error'
+            });
+
+            return false;
+        }
         this.$refs[formData].validate((valid) => {
           if (!valid) {
             this.$message({
@@ -183,7 +192,7 @@
           } else {
             //发布文章
             this.axios
-              .post("http://localhost:8000/front/articleController/saveOrUpdArticle", this.article)
+              .post("/front/articleController/saveOrUpdArticle", this.article)
               .then((response) => {
                 this.$message({
                   showClose: true,

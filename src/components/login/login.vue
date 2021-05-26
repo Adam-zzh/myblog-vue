@@ -24,10 +24,10 @@
 </template>
 <script>
   export default {
-    props: ['modelShow'],
     data() {
       return {
         //是否可以关闭
+        modelShow: true,
         canClose: true,
         //表单数据
         form: {
@@ -36,27 +36,36 @@
         }
       }
     },
-    mounted: function () {
-      // if (!localStorage.token) {
-      //   this.$parent.login_isShow = true;
-      // } else {
-      //   this.$parent.login_isShow = false;
-      // }
-    },
+    mounted: function () {},
     methods: {
       login() {
-        this.axios.post("/admin/user/login", this.form).then((response) => {
-            if (response === 200) {
+        this.axios.post("/admin/userController/login", this.form).then((response) => {
+            if (response.code === 200) {
               // * 存储token
-              localStorage.setItem('token', response.data);
-              this.$parent.login_isShow = false;
-            }else{
+              localStorage.setItem('token', response.data.tokenHead + " " + response.data.token);
+              this.$message({
+                showClose: true,
+                message: '登陆成功',
+                type: 'success'
+              });
+              this.modelShow = false;
+              this.$router.push(this.$route.query.redirect || '/')
+            } else {
               localStorage.removeItem('token');
-              this.$parent.login_isShow = true;
+              this.modelShow = true;
+              this.$message({
+                showClose: true,
+                message: response.message,
+                type: 'error'
+              });
             }
           },
           (error) => {
-            console.log(error.data)
+            this.$message({
+              showClose: true,
+              message: error.message,
+              type: 'error'
+            });
           })
       },
       //关闭登录窗口前的回调(如果用户没有登录成功，则再次打开本窗口，以达到强制登录的目的)
@@ -85,10 +94,12 @@
   #myblog-login .el-dialog__header {
     padding: 20px 20px 10px;
     padding: 0;
-  }    
-  #myblog-login .el-dialog__body{
+  }
+
+  #myblog-login .el-dialog__body {
     box-shadow: -3px 1px 2px 1px #333;
   }
+
   #myblog-login .el-dialog__body::before {
     content: '';
     background-color: aliceblue;
@@ -98,6 +109,7 @@
     left: 0;
     right: calc(50% - 30px);
     background: #6686ff0f;
+    z-index: -999;
   }
 
   #myblog-login .el-dialog {
@@ -107,10 +119,10 @@
     background-position: right;
   }
 
-  #myblog-login .login-dialog{
+  #myblog-login .login-dialog {
     background-color: #60626699;
   }
- 
+
 
   #myblog-login .el-form-item__label {
     color: black;
