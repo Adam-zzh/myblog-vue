@@ -12,7 +12,7 @@
           <el-col :span="8">
             <div class="blog-title-right">
               <!-- 发布弹出框 START -->
-              <el-popover placement="bottom" width="28rem" trigger="click" title="发布文章" class="publish-popver">
+              <el-popover placement="bottom" width="28rem" trigger="click" title="发布文章" class="publish-popver" ref="publishPopver">
                 <div class="publish-popver-content">
                   <dt>分类</dt>
                   <div class="publish-type">
@@ -199,6 +199,7 @@
                   message: '发布成功',
                   type: 'success'
                 });
+                this.$refs.publishPopver.doClose();
               })
               .catch((response) => {
                 this.$message({
