@@ -12,40 +12,34 @@
           <el-col :span="8">
             <div class="blog-title-right">
               <!-- 发布弹出框 START -->
-              <el-popover placement="bottom" width="28rem" trigger="click" title="发布文章" class="publish-popver" ref="publishPopver">
-                <div class="publish-popver-content">
-                  <dt>分类</dt>
-                  <div class="publish-type">
-                    <dl>生活感悟</dl>
-                    <dl>游戏天地</dl>
-                    <dl>数学天地</dl>
-                    <dl>java</dl>
-                    <dl>前端</dl>
-
-                    <dl>生活感悟</dl>
-                    <dl>游戏天地</dl>
-                    <dl>数学天地</dl>
-                    <dl>java</dl>
-                    <dl>前端</dl>
-
-                    <dl>生活感悟</dl>
-                    <dl>游戏天地</dl>
-                    <dl>数学天地</dl>
-                    <dl>java</dl>
-                    <dl>前端</dl>
-                  </div>
-
+              <el-popover placement="bottom" width="28rem" trigger="click" title="发布文章" ref="publishPopver"
+                popper-class="publish-popver">
+                <div class="publish-popver-content" style="width: 28rem;">
                   <dt>标签</dt>
                   <div class="publish-label">
-                    <el-row :gutter="20">
+                    <el-row :gutter="10" style="margin: 0;">
                       <el-form-item prop="articleLabels">
                         <el-col :span="8" v-for="(item, index) in article.articleLabels" :key="index">
-                          <el-input placeholder="标签" v-model="item.value" clearable>
-                          </el-input>
+                          <el-input placeholder="标签" v-model="item.value" clearable v-if="item.ifHand=='1'" />
+                          <el-cascader :options="options" v-if="item.ifHand=='0'" clearable :show-all-levels="false" @click.native="renderLabel" 
+                          @change="item.labelId =  $event[$event.length-1]">
+                            <template slot-scope="{ node, data }">
+                              <span>{{ data.label }}</span>
+                              <span v-if="!node.isLeaf"> ({{ data.children.length }}) </span>
+                            </template>
+                          </el-cascader>
                         </el-col>
                       </el-form-item>
-                      <el-col :span="8">
-                        <el-button type="info" plain @click="addInput">添加标签</el-button>
+                      <el-col :span="10" class="popover-addTags">
+                        <el-dropdown>
+                          <span class="el-dropdown-link">
+                            添加标签<i class="el-icon-arrow-down el-icon--right"></i>
+                          </span>
+                          <el-dropdown-menu slot="dropdown">
+                            <el-dropdown-item @click.native="addInput('1')">自定义标签</el-dropdown-item>
+                            <el-dropdown-item @click.native="addInput('0')">下拉选标签</el-dropdown-item>
+                          </el-dropdown-menu>
+                        </el-dropdown>
                       </el-col>
                     </el-row>
                     </el-input>
@@ -55,8 +49,9 @@
                     <el-button type="primary" plain @click="publishArticle('publishBlog')">确定并发布</el-button>
                   </div>
                 </div>
-                <el-button type="primary" slot="reference" class="publish-button"> <span
-                    class="iconfont icon-publish "></span> 发布文章</el-button>
+                <el-button type="primary" slot="reference" class="publish-button">
+                  <span class="iconfont icon-publish "></span> 发布文章
+                </el-button>
               </el-popover>
               <!-- 发布弹出框 end-->
             </div>
@@ -125,6 +120,7 @@
           title: "",
           articleLabels: []
         },
+        options: [],
         rules: {
           content: [{
             required: true,
@@ -140,7 +136,7 @@
             required: true,
             message: '请添加至少一个标签',
             trigger: 'blur'
-          },{
+          }, {
             validator: isNotNull,
             trigger: 'blur'
           }]
@@ -149,8 +145,11 @@
       }
     },
     methods: {
-      addInput() {
-        this.article.articleLabels.push({});
+      addInput(ifHand) {
+        console.log(ifHand)
+        this.article.articleLabels.push({
+          ifHand
+        });
       },
       handleEditorImgAdd(pos, $file) {
         //makedown添加图片
@@ -172,14 +171,14 @@
 
       },
       publishArticle(formData) {
-        if(this.article.content == ''){
+        if (this.article.content == '') {
           this.$message({
-              showClose: true,
-              message: '请填写文章内容',
-              type: 'error'
-            });
+            showClose: true,
+            message: '请填写文章内容',
+            type: 'error'
+          });
 
-            return false;
+          return false;
         }
         this.$refs[formData].validate((valid) => {
           if (!valid) {
@@ -210,9 +209,18 @@
               })
           }
         });
-
-
+      },
+      renderLabel() {
+        this.axios
+          .get("/front/labelController/labels")
+          .then((response) => {
+            this.options = response.data;
+          })
+          .catch((err) => {
+            console.log(err)
+          })
       }
+
     }
   }
 
@@ -233,6 +241,22 @@
 
   .markdown-body {
     width: 100vw;
+  }
+
+  .el-dropdown-link {
+    cursor: pointer;
+    color: #409EFF;
+  }
+
+  .el-icon-arrow-down {
+    font-size: 12px;
+  }
+
+  .popover-addTags {
+    border: 1px solid #ccc;
+    margin: 0 !important;
+    padding: 10px 0 10px 15px !important;
+    border-radius: 5px;
   }
 
 </style>

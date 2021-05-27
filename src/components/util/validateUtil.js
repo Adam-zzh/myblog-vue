@@ -315,7 +315,7 @@ export function validatAlphabets(str) {
 /* 是否空对象 成功必须要写callback(); 否则validate没有反应*/
 export function isNotNull(rule, value, callback) {
     for (const el of value) {
-      if (Object.keys(el).length === 0 || el.value == undefined) {
+      if (Object.keys(el).length === 0 || (el.value == undefined && el.labelId == undefined)) {
         callback(new Error('请输入标签内容'));
       }
     }
