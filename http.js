@@ -18,17 +18,13 @@ axios.interceptors.request.use(
 axios.interceptors.response.use(
   response => {
     let data = response.data;
-    // * 正常返回数据
-    if (data.code === 200) {
-      // * 返回data
-      console.log(222)
-      return data
-    }
     // * 如果code是401 表示token未认证(后端定义的错误码)
     // * 跳转到login
     if (data.code === 401) {
       router.replace('/login')
       console.log(111)
+    }else{
+      return data;
     }
     return Promise.reject(data);
   },

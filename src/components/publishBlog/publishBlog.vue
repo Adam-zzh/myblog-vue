@@ -200,7 +200,7 @@
                 });
                 this.$refs.publishPopver.doClose();
               })
-              .catch((response) => {
+              .catch((error) => {
                 this.$message({
                   showClose: true,
                   message: '发布失败',

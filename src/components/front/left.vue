@@ -1,112 +1,39 @@
 <template>
   <div id="front-left">
     <div class="left article-list">
-      <div class="article">
+      <div class="article" v-for="(item,key) in list" ::key="key">
         <div class="datebg">
-          <span class="day">30</span>
-          <span>4月</span>
-          <span>2010</span>
+          <span class="day">{{item.date}}</span>
+          <span>{{item.month}}月</span>
+          <span>{{item.year}}</span>
         </div>
 
         <h2 class="article-title">
-          如何测试 React Hooks ?
+          {{item.title}}
         </h2>
         <div class="article-lable">
-          <span class="article-lable-type">
-            <dt>标签:</dt>
-            <dd>react</dd>
-            <dd>js</dd>
-            <dd>java</dd>
+          <span class="article-lable-type" v-for="item1 in item.labels">
+            <dt>{{item1}}</dt>
           </span>
           <span class="article-lable-comment">
-            评论:
+            评论
           </span>
         </div>
-        <div class="article-content">
-          我是内容......
+        <div class="article-content" v-html="item.content">
         </div>
         <div class="article-footer">
           <a>
             <span class="article-footer-left">继续阅读:</span>
-            <span class="article-footer-right">如何测试 React Hooks?</span>
-          </a>
-        </div>
-      </div>
-
-      <div class="article">
-        <div class="datebg">
-          <span class="day">30</span>
-          <span>4月</span>
-          <span>2010</span>
-        </div>
-        <h2 class="article-title">
-          如何测试 React Hooks ?
-        </h2>
-        <div class="article-lable">
-          <span class="article-lable-type">
-            <dt>标签:</dt>
-            <dd>react</dd>
-            <dd>js</dd>
-            <dd>java</dd>
-          </span>
-          <span class="article-lable-comment">
-            评论:
-          </span>
-        </div>
-        <div class="article-content">
-          我是内容......
-        </div>
-        <div class="article-footer">
-          <a>
-            <span class="article-footer-left">继续阅读:</span>
-            <span class="article-footer-right">如何测试 React Hooks?</span>
-          </a>
-        </div>
-      </div>
-
-      <div class="article">
-        <div class="datebg">
-          <span class="day">30</span>
-          <span>4月</span>
-          <span>2010</span>
-        </div>
-        <h2 class="article-title">
-          如何测试 React Hooks ?
-        </h2>
-        <div class="article-lable">
-          <span class="article-lable-type">
-            <dt>标签:</dt>
-            <dd>react</dd>
-            <dd>js</dd>
-            <dd>java</dd>
-          </span>
-          <span class="article-lable-comment">
-            评论:
-          </span>
-        </div>
-        <div class="article-content">
-          我是内容......
-        </div>
-        <div class="article-footer">
-          <a>
-            <span class="article-footer-left">继续阅读:</span>
-            <span class="article-footer-right">如何测试 React Hooks?</span>
+            <span class="article-footer-right"> {{item.title}}</span>
           </a>
         </div>
       </div>
     </div>
     <!-- layout="total, sizes, prev, pager, next, jumper" -->
     <div class="block">
-      <el-pagination
-        background
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        :current-page="currentPage"
-        :page-sizes="[5,10, 20, 50]"
-        :page-size="15"
-        :pager-count="5"
-        layout="total, prev, pager, next, jumper"
-        :total="100">
+      <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange"
+        :current-page="currentPage" :page-sizes="[5,10, 20, 50]" :page-size="pageSize" :pager-count="5"
+        layout="total,sizes, prev, pager, next, jumper" :total="totalCount">
       </el-pagination>
     </div>
   </div>
@@ -116,15 +43,40 @@
     name: "left",
     data() {
       return {
-        currentPage: 2
+        pageSize: 10,
+        list: [],
+        currentPage: 1,
+        totalPage: 1,
+        totalCount: 2
       }
+    },
+    mounted() {
+      this.initArticel(this.pageSize,this.currentPage);
     },
     methods: {
       handleSizeChange(val) {
-        console.log(`每页 ${val} 条`);
+        this.pageSize = val
+        this.initArticel(val, 1)
+        this.currentPage = 1
       },
       handleCurrentChange(val) {
-        console.log(`当前页: ${val}`);
+        this.currentPage = val
+        this.initArticel(this.pageSize, val)
+      },
+      initArticel(n1, n2) {
+        var _that = this
+        let baseParam = {
+          "page": n2,
+          "pageSize": n1,
+        }
+        this.axios
+          .post('/front/articleController/articles', baseParam)
+          .then((response) => {
+            this.list = response.list
+            this.totalCount = response.total
+          }).catch(error =>{
+            console.log(error)
+          })
       }
     },
   }
@@ -132,4 +84,5 @@
 </script>
 <style scoped>
   @import url("../../../static/css/left.css");
+
 </style>
