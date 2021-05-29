@@ -3,7 +3,7 @@
     <div class="bg">
     </div>
     <div class="main">
-      <div id="catalog" class="catalog">
+      <div id="catalog" class="catalog" v-html="catalog">
       </div>
       <div class="article">
         <div class="title" v-html="article.title"></div>
@@ -72,34 +72,21 @@
     methods: {
       createCatalog() {
         //创建导读
-        let markDown = document.getElementById("markdown-body");
-        let catalog = document.getElementById("catalog");
-        // let catalog = "";
+        // let markDown = document.getElementById("markdown-body");
+        let catalog = "";
         const nodes = ['H1', 'H2', 'H3', 'H4', 'H5', 'H6'];
-        let _h1 = document.createElement("div");
-        _h1.textContent = "导读"
-        _h1.style.marginBottom = "10px"
-        _h1.fontSize = "20px"
-        catalog.appendChild(_h1);
-        // catalog += `<div style="margin-bottom:10px;font-size:20px">导读</div>`
-        markDown.childNodes.forEach((e, index) => {
+        let temp = document.createElement("div");
+        temp.innerHTML = this.article.content;
+        catalog += `<div style="margin-bottom: 10px;">导读</div>`;
+        temp.childNodes.forEach((e, index) => {
           if (nodes.includes(e.nodeName)) {
-            // let li_paddL = Number(e.nodeName.substring(1, 2)) * 16 + 'px';
-            // let a_fontSize = 20 * (1 - 0.05 * Number(e.nodeName.substring(1, 2))) + 'px';
+            let li_paddL = Number(e.nodeName.substring(1, 2)) * 16 + 'px';
+            let a_fontSize = 20 * (1 - 0.05 * Number(e.nodeName.substring(1, 2))) + 'px';
             let _href = e.childNodes[0].id;
-            let li = document.createElement("div");
-            li.style.paddingLeft = Number(e.nodeName.substring(1, 2)) * 16 + 'px';
-            li.style.marginBottom = '8px';
-            let a = document.createElement('a');
-            a.href = '#' + _href;
-            a.style.fontSize = 20 * (1 - 0.05 * Number(e.nodeName.substring(1, 2))) + 'px';
-            a.innerHTML = e.textContent;
-            li.appendChild(a);
-            // catalog += `<div style="padding-left: ${li_paddL}; margin-bottom: 8px;"><a href="#_20" style="font-size: ${a_fontSize};">${e.textContent}</a></div>`
-            // catalog.appendChild(li);
+            catalog += `<div style="padding-left: ${li_paddL}; margin-bottom: 8px;"><a href="#${_href}" style="font-size: ${a_fontSize};">${e.textContent}</a></div>`
           }
         })
-        console.log( catalog)
+        this.catalog = catalog;
       },
       initDetail(){
         let id = this.$route.params.articleId
