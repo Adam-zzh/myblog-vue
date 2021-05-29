@@ -10,17 +10,21 @@
         <div class="baseData">
           <h4 class="blog-date" v-html="article.date"></h4>
           <h4 class="blog-view">
+            <label>创建时间：</label>
+            <span class="viewNum">{{article.creTime | dateStr('YYYY-MM-DD')}}</span>
+          </h4>
+          <h4 class="blog-view">
             <label>浏览量：</label>
-            <span class="viewNum" v-html="article.viewNum"></span>
+            <span class="viewNum" v-html="article.viewNum || 0"></span>
           </h4>
           <h4 class="blog-likes">
-            <label>点赞数：</label>
+            <label>点赞数：{{article.likeNum || 0}}</label>
             <span class="likeNum" v-html="article.likeNum"></span>
           </h4>
           <h4 class="blog-tag">
             <label>标签：</label>
-            <span class="tag">
-              <li v-for="(item, index) in article.tags" :key="index">
+            <span class="tags">
+              <li v-for="(item, index) in article.labels" :key="index">
                 {{ item }}&nbsp;&nbsp;
               </li>
             </span>
@@ -46,35 +50,42 @@
 <script>
   import MainContent from './blog-content';
   import MainComment from './blog-comment';
+  import {
+    dateFormat
+  } from '../../util/dateUtil'
+
   export default {
     data() {
       return {
-        article: {
-          content: `<h1><a id="_0"></a>这是一级标题</h1> <blockquote> <p>这是引用的内容</p> <blockquote> <p>这是引用的内容</p> </blockquote> </blockquote> <hr /> <p><img src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fwallpaperm.cmcm.com%2Fb958279ae636bb8c89cb29086dc59332.jpg&amp;refer=http%3A%2F%2Fwallpaperm.cmcm.com&amp;app=2002&amp;size=f9999,10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=jpeg?sec=1623565102&amp;t=321dfe5ddcf95c938648eefd01f524f3" alt="meinv" title="美女" /></p> <table> <thead> <tr> <th>姓名</th> <th style="text-align:center">技能</th> <th style="text-align:right">排行</th> </tr> </thead> <tbody> <tr> <td>刘备</td> <td style="text-align:center">哭</td> <td style="text-align:right">大哥</td> </tr> <tr> <td>关羽</td> <td style="text-align:center">打</td> <td style="text-align:right">二哥</td> </tr> <tr> <td>张飞</td> <td style="text-align:center">骂</td> <td style="text-align:right">三弟</td> </tr> </tbody> </table> <pre><div class="hljs"><code class="lang-java"> 代码... 代码... 代码... </code></div></pre> <h2><a id="_20"></a>这是二级标题</h2> <h3><a id="_21"></a>这是三级标题</h3> <h4><a id="_22"></a>这是四级标题</h4> <h5><a id="_23"></a>这是五级标题</h5> <h6><a id="_24"></a>这是六级标题</h6>`,
-          title: "吾将上下而求索",
-          date: "2021-05-14",
-          viewNum: 888,
-          likeNum: 66,
-          tags: ['java', 'js'],
-          types: ["生活分享", "技术栈"]
-        }
+        article: {},
+        catalog: ""
       }
     },
     components: {
       MainContent, MainComment
     },
+    filters: {
+      dateStr(value) {
+        return dateFormat(value);
+      }
+    },
     methods: {
       createCatalog() {
+        //创建导读
         let markDown = document.getElementById("markdown-body");
-        let catalog = document.getElementById('catalog');
+        let catalog = document.getElementById("catalog");
+        // let catalog = "";
         const nodes = ['H1', 'H2', 'H3', 'H4', 'H5', 'H6'];
         let _h1 = document.createElement("div");
         _h1.textContent = "导读"
         _h1.style.marginBottom = "10px"
         _h1.fontSize = "20px"
         catalog.appendChild(_h1);
+        // catalog += `<div style="margin-bottom:10px;font-size:20px">导读</div>`
         markDown.childNodes.forEach((e, index) => {
           if (nodes.includes(e.nodeName)) {
+            // let li_paddL = Number(e.nodeName.substring(1, 2)) * 16 + 'px';
+            // let a_fontSize = 20 * (1 - 0.05 * Number(e.nodeName.substring(1, 2))) + 'px';
             let _href = e.childNodes[0].id;
             let li = document.createElement("div");
             li.style.paddingLeft = Number(e.nodeName.substring(1, 2)) * 16 + 'px';
@@ -84,13 +95,26 @@
             a.style.fontSize = 20 * (1 - 0.05 * Number(e.nodeName.substring(1, 2))) + 'px';
             a.innerHTML = e.textContent;
             li.appendChild(a);
-            catalog.appendChild(li);
+            // catalog += `<div style="padding-left: ${li_paddL}; margin-bottom: 8px;"><a href="#_20" style="font-size: ${a_fontSize};">${e.textContent}</a></div>`
+            // catalog.appendChild(li);
           }
         })
+        console.log( catalog)
+      },
+      initDetail(){
+        let id = this.$route.params.articleId
+        this.axios
+          .get('/front/articleController/article/'+id)
+          .then((response) => {
+            this.article = response.data
+            this.createCatalog();
+          }).catch(error => {
+            console.log(error)
+          })
       }
     },
     mounted() {
-      this.createCatalog();
+      this.initDetail();
     }
   }
 
