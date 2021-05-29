@@ -1,7 +1,7 @@
 <template>
     <div id="main">
-        <left ref="left"></left>
-        <right ref="right"></right>
+        <left ref="left" :conditions="conditions"></left>
+        <right ref="right" @renderArticle="assemble"></right>
     </div>
 </template>
 <script>
@@ -14,8 +14,14 @@
         },
         data() {
             return {
+                conditions: []
             }
-        }
+        },
+        methods: {
+            assemble(data){
+                this.conditions = data;
+            }
+        },
     }
 </script>
 <style>

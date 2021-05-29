@@ -44,6 +44,7 @@
 
   export default {
     name: "left",
+    props: ['conditions'],
     data() {
       return {
         pageSize: 10,
@@ -53,13 +54,19 @@
         totalCount: 2
       }
     },
-    filters:{
-      dateStr(value){
+    filters: {
+      dateStr(value) {
         return dateFormat(value);
       }
     },
     mounted() {
       this.initArticel(this.pageSize, this.currentPage);
+    },
+    watch: {
+      conditions: function (val) {
+        console.log(val)
+        this.initArticel(this.pageSize, this.currentPage, val);
+      }
     },
     methods: {
       handleSizeChange(val) {
@@ -71,11 +78,14 @@
         this.currentPage = val
         this.initArticel(this.pageSize, val)
       },
-      initArticel(n1, n2) {
+      initArticel(n1, n2, n3) {
         var _that = this
         let baseParam = {
           "page": n2,
           "pageSize": n1,
+        }
+        if (n3 != undefined) {
+          baseParam.conditions = n3;
         }
         this.axios
           .post('/front/articleController/articles', baseParam)
