@@ -18,13 +18,12 @@
               <dt>{{item1}}</dt>
             </span>
           </div>
-          <div class="content">为了方便大家查看进度，我创建了一个看板方便大家查看 看板链接:开发进度 | Trello 简单介绍
-            方便大家查看进度，我创建了一个看板方便大家查看 看板链接:开发进度 | Trello 简单介绍方便大家查看进度，我创建了一个看板方便大家查看 看板链接:开发进度 | Trello 简单介绍 </div>
+          <div class="content" v-html="item.content"></div>
           <div class="bottom">
-            <h3 class="cretime">2021-03-08</h3>
+            <h3 class="cretime">{{item.creTime | dateStr('YYYY-MM-DD')}}</h3>
             <h3 class="comment">42条评论</h3>
-            <h3 class="view">1000次阅读</h3>
-            <h3 class="like">10人点赞</h3>
+            <h3 class="view">{{item.viewNum || 0}}次阅读</h3>
+            <h3 class="like">{{item.likeNum || 0}}人点赞</h3>
           </div>
         </router-link>
       </div>
@@ -39,6 +38,10 @@
   </div>
 </template>
 <script>
+  import {
+    dateFormat
+  } from '../util/dateUtil'
+
   export default {
     name: "left",
     data() {
@@ -48,6 +51,11 @@
         currentPage: 1,
         totalPage: 1,
         totalCount: 2
+      }
+    },
+    filters:{
+      dateStr(value){
+        return dateFormat(value);
       }
     },
     mounted() {
