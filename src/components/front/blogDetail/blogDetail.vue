@@ -94,6 +94,7 @@
           .get('/front/articleController/article/'+id)
           .then((response) => {
             this.article = response.data
+
             this.createCatalog();
           }).catch(error => {
             console.log(error)
