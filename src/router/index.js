@@ -30,7 +30,7 @@ export default new vueRouter({
       }
     },
     {
-      path: '/blogDetail',
+      path: '/blogDetail/:articleId',
       name: 'blogDetail',
       component: blogDetail
     },

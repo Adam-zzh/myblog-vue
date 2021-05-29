@@ -2,31 +2,31 @@
   <div id="front-left">
     <div class="left article-list">
       <div class="article" v-for="(item,key) in list" ::key="key">
-        <div class="datebg">
-          <span class="day">{{item.date}}</span>
-          <span>{{item.month}}月</span>
-          <span>{{item.year}}</span>
-        </div>
+        <router-link :to="{ name: 'blogDetail', params: { articleId: item.id }}">
+          <div class="datebg">
+            <span class="day">{{item.date}}</span>
+            <span>{{item.month}}月</span>
+            <span>{{item.year}}</span>
+          </div>
 
-        <h2 class="article-title">
-          {{item.title}}
-        </h2>
-        <div class="article-lable">
-          <span class="article-lable-type" v-for="item1 in item.labels">
-            <dt>{{item1}}</dt>
-          </span>
-          <span class="article-lable-comment">
-            评论
-          </span>
-        </div>
-        <div class="article-content" v-html="item.content">
-        </div>
-        <div class="article-footer">
-          <a>
-            <span class="article-footer-left">继续阅读:</span>
-            <span class="article-footer-right"> {{item.title}}</span>
-          </a>
-        </div>
+          <h2 class="article-title">
+            {{item.title}}
+          </h2>
+          <div class="article-lable">
+            <label>标签：</label>
+            <span class="article-lable-type" v-for="item1 in item.labels">
+              <dt>{{item1}}</dt>
+            </span>
+          </div>
+          <div class="content">为了方便大家查看进度，我创建了一个看板方便大家查看 看板链接:开发进度 | Trello 简单介绍
+            方便大家查看进度，我创建了一个看板方便大家查看 看板链接:开发进度 | Trello 简单介绍方便大家查看进度，我创建了一个看板方便大家查看 看板链接:开发进度 | Trello 简单介绍 </div>
+          <div class="bottom">
+            <h3 class="cretime">2021-03-08</h3>
+            <h3 class="comment">42条评论</h3>
+            <h3 class="view">1000次阅读</h3>
+            <h3 class="like">10人点赞</h3>
+          </div>
+        </router-link>
       </div>
     </div>
     <!-- layout="total, sizes, prev, pager, next, jumper" -->
@@ -51,7 +51,7 @@
       }
     },
     mounted() {
-      this.initArticel(this.pageSize,this.currentPage);
+      this.initArticel(this.pageSize, this.currentPage);
     },
     methods: {
       handleSizeChange(val) {
@@ -74,7 +74,7 @@
           .then((response) => {
             this.list = response.list
             this.totalCount = response.total
-          }).catch(error =>{
+          }).catch(error => {
             console.log(error)
           })
       }
