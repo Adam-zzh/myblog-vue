@@ -88,7 +88,7 @@
           baseParam.conditions = n3;
         }
         this.axios
-          .post('/front/articleController/articles', baseParam)
+          .post('/front/articleController/public/articles', baseParam)
           .then((response) => {
             this.list = response.list
             this.totalCount = response.total

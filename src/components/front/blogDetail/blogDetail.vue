@@ -91,7 +91,7 @@
       initDetail(){
         let id = this.$route.params.articleId
         this.axios
-          .get('/front/articleController/article/'+id)
+          .get('/front/articleController/public/article/'+id)
           .then((response) => {
             this.article = response.data
 
