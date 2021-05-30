@@ -28,7 +28,8 @@
     padding-right: 15px;
     padding-top: 40px;
     padding-bottom: 45px;
-    margin-bottom: 100px
+    margin-bottom: 100px;
+    color: blanchedalmond;
   }
 
   /* github使用的是这个   根据自己的进行调整 */
@@ -38,6 +39,15 @@
     max-width: 980px;
     margin: 0 auto;
     padding: 15px 30px;
+  }
+  .markdown-body h1,
+  .markdown-body h2,
+  .markdown-body h3,
+  .markdown-body h4,
+  .markdown-body h5,
+  .markdown-body h6
+  {
+    color: #e6a23c;
   }
 
 </style>

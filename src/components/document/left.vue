@@ -1,6 +1,6 @@
 <template>
 
-   
+
   <div id="doumentCatalogue">
     <div class="search">
       <el-input placeholder="请输入内容" v-model="input" clearable>
@@ -70,4 +70,10 @@
 </script>
 <style>
   @import url("../../../static/css/document/left.css");
+
+  .el-icon-s-fold:before,
+  .el-icon-s-unfold:before {
+    color: bisque !important;
+  }
+
 </style>

@@ -130,7 +130,8 @@
   }
 
   #blog-detail .catalog {
-    background-color: blueviolet;
+    /* background-color: #8a2be226; */
+    background-color: #ecf5ff1a;
     width: 360px;
     height: 100%;
     border: 1px solid #232323;
@@ -145,7 +146,8 @@
   }
 
   #blog-detail .article {
-    background-color: rgb(76, 43, 226);
+    /* background-color: rgb(76, 43, 226); */
+    background-color: rgba(76, 43, 226, 0.5);
     width: 100%;
     height: 100%;
     overflow: scroll;
@@ -156,7 +158,8 @@
   }
 
   #blog-detail .navigation {
-    background-color: yellowgreen;
+    /* background-color: yellowgreen; */
+    background-color: #ecf5ff1a;
     width: 360px;
     height: 100%;
     overflow: scroll;

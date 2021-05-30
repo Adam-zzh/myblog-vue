@@ -1,4 +1,6 @@
+import router from './src/router/index'
 import axios from 'axios';
+
 // * http request 拦截器
 axios.interceptors.request.use(
   config => {
@@ -10,7 +12,6 @@ axios.interceptors.request.use(
     return config;
   },
   err => {
-    alert(1231)
     return Promise.reject(err);
   });
 
@@ -21,8 +22,8 @@ axios.interceptors.response.use(
     // * 如果code是401 表示token未认证(后端定义的错误码)
     // * 跳转到login
     if (data.code === 401) {
+      console.log(this.$router)
       router.replace('/login')
-      console.log(111)
     }else{
       return data;
     }

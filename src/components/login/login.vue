@@ -40,16 +40,16 @@
     methods: {
       login() {
         this.axios.post("/admin/userController/login", this.form).then((response) => {
-            if (response.code === 200) {
+            if (response.code == 200) {
               // * 存储token
-              localStorage.setItem('token', response.data.tokenHead + " " + response.data.token);
+              localStorage.setItem('token', response.data.token);
               this.$message({
                 showClose: true,
                 message: '登陆成功',
                 type: 'success'
               });
               this.modelShow = false;
-              this.$router.push(this.$route.query.redirect || '/')
+              this.$router.replace(this.$route.query.redirect || '/')
             } else {
               localStorage.removeItem('token');
               this.modelShow = true;
