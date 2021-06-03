@@ -30,7 +30,7 @@ module.exports = {
       '/': {
         target: 'http://localhost:8021',
         changeOrigin: true,
-        pathRewrite: {}
+        pathRewrite: {'/': '/'}
       }
     },
 

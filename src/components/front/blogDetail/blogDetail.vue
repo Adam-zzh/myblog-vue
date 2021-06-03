@@ -41,7 +41,13 @@
         <MainContent :content="article.content"></MainContent>
       </div>
       <div class="navigation">
-          <MainComment></MainComment>
+          <MainComment ref="comment"></MainComment>
+          <div class="publishComment">
+            <el-input type="textarea" placeholder="写个评论吧，可以推给对应的用户ଘ(੭ˊᵕˋ)੭" v-model="commentContent" maxlength="30"
+              show-word-limit>
+            </el-input>
+            <el-button type="success" icon="el-icon-message" circle style="margin-left: 10px;" @click="publishComment"></el-button>
+          </div>
       </div>
     </div>
 
@@ -58,7 +64,8 @@
     data() {
       return {
         article: {},
-        catalog: ""
+        catalog: "",
+        commentContent: ""
       }
     },
     components: {
@@ -99,6 +106,10 @@
           }).catch(error => {
             console.log(error)
           })
+      },
+      publishComment(){
+        this.$refs.comment.publishComment(this.commentContent, this.article.id);
+        this.commentContent = "";
       }
     },
     mounted() {
@@ -145,6 +156,8 @@
     margin-right: 20px;
   }
 
+
+
   #blog-detail .article {
     /* background-color: rgb(76, 43, 226); */
     background-color: rgba(76, 43, 226, 0.5);
@@ -162,11 +175,24 @@
     background-color: #ecf5ff1a;
     width: 360px;
     height: 100%;
-    overflow: scroll;
+    overflow: hidden;
     padding: 20px;
     margin-left: 20px;
     margin-right: 20px;
     border: 1px solid #232323;
+    position: relative;
+  }
+
+  .navigation .publishComment {
+    position: absolute;
+    bottom: 0;
+    left: 2px;
+    right: 2px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .navigation .publishComment textarea {
+    resize: none;
   }
 
   .article .baseData{

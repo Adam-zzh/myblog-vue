@@ -1,6 +1,8 @@
 import router from './src/router/index'
 import axios from 'axios';
 
+axios.defaults.withCredentials = true
+
 // * http request 拦截器
 axios.interceptors.request.use(
   config => {

@@ -40,6 +40,7 @@ Vue.use(mavonEditor)
 
 // 配置axios请求基本地址
 // axios.defaults.baseURL = 'http://localhost:8021'
+//前后端分离 跨域 sessionid保持一致
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
