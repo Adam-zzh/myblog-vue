@@ -21,7 +21,7 @@
           <router-link to="/documentSystem">文档系统</router-link>
         </div>
         <div class="menus_item">
-          <router-link to="/leaveMessage">留言</router-link>
+          <router-link to="/leaveMessage">留言</router-link> 
         </div>
         <div class="menus_item">
           <router-link to="/about">关于</router-link>
@@ -37,6 +37,7 @@
           <img src="https://img1.baidu.com/it/u=2063594679,659410345&fm=26&fmt=auto&gp=0.jpg" />
         </div>
       </div>
+      
     </div>
   </div>
 
