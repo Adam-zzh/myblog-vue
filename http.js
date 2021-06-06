@@ -24,7 +24,6 @@ axios.interceptors.response.use(
     // * 如果code是401 表示token未认证(后端定义的错误码)
     // * 跳转到login
     if (data.code === 401) {
-      console.log(this.$router)
       router.replace('/login')
     }else{
       return data;

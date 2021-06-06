@@ -88,8 +88,8 @@
         }
 
         if (this.activeClassIndex != -1) {
-          this.comment.pid = pid;
-          this.comment.targetId = targetId;
+          this.comment.pid = pid + "";
+          this.comment.targetId = targetId + "";
         } else {
           this.comment.pid = 0;
           this.comment.targetId = 0;
@@ -110,7 +110,6 @@
         this.axios.post("/front/commentController/public/comments", baseParam).then((response) => {
             this.comments = response.data.list;
             this.totalComment = response.data.total;
-            console.log(this.comments)
           },
           (error) => {
             console.log("评论" + error);

@@ -21,7 +21,7 @@
           <router-link to="/documentSystem">文档系统</router-link>
         </div>
         <div class="menus_item">
-          <router-link to="/leaveMessage">留言</router-link> 
+          <router-link to="/leaveMessage">留言</router-link>
         </div>
         <div class="menus_item">
           <router-link to="/about">关于</router-link>
@@ -37,7 +37,7 @@
           <img src="https://img1.baidu.com/it/u=2063594679,659410345&fm=26&fmt=auto&gp=0.jpg" />
         </div>
       </div>
-      
+
     </div>
   </div>
 
@@ -49,7 +49,9 @@
     data() {
       return {
         scrollFlag: false,
-        unReadNum: 5
+        unReadNum: 0,
+        websocket: {},
+        messages: []
       }
     },
     methods: {
@@ -62,15 +64,76 @@
         } else {
           _this.scrollFlag = false;
         }
+      },
+      // websocket
+      initWebSocket() {
+        // 连接错误
+        this.websocket.onerror = this.setErrorMessage
+
+        // 连接成功
+        this.websocket.onopen = this.setOnopenMessage
+
+        // 收到消息的回调
+        this.websocket.onmessage = this.setOnmessageMessage
+
+        // 连接关闭的回调
+        this.websocket.onclose = this.setOncloseMessage
+
+        // 监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
+        window.onbeforeunload = this.onbeforeunload
+      },
+      setErrorMessage() {
+        console.log('WebSocket连接发生错误   状态码：' + this.websocket.readyState)
+      },
+      setOnopenMessage() {
+        console.log('WebSocket连接成功    状态码：' + this.websocket.readyState)
+      },
+      setOnmessageMessage(event) {
+        // 根据服务器推送的消息做自己的业务处理
+        this.messages = JSON.parse(event.data);
+        this.unReadNum = this.messages.length;
+        console.log('服务端返回：' + this.messages)
+      },
+      setOncloseMessage() {
+        console.log('WebSocket连接关闭    状态码：' + this.websocket.readyState)
+      },
+      onbeforeunload() {
+        this.closeWebSocket()
+      },
+      closeWebSocket() {
+        if (Object.keys(this.websocket) > 0) {
+          this.websocket.close()
+        }
+      },
+      initMessage() {
+        this.axios.get("/front/messageController/messages").then((response) => {
+            this.messages = response;
+            this.unReadNum = this.messages.length;
+            console.log(this.messages)
+          },
+          (error) => {
+            console.log(error);
+          })
       }
     },
 
-    computed: {
-    },
+    computed: {},
 
     mounted() {
       window.addEventListener('scroll', this.handleScroll);
-    }
+      let user = JSON.parse(sessionStorage.getItem("user"));
+      // websocket
+      if ('WebSocket' in window && user != undefined) {
+        this.websocket = new WebSocket('ws://localhost:8001/websocket/' + user.account);
+        this.initMessage();
+        this.initWebSocket()
+      }
+    
+    },
+
+    beforeDestroy() {
+      this.onbeforeunload();
+    },
 
   }
 

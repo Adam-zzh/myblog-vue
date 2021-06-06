@@ -5,18 +5,23 @@
         <router-view class="myblog-center"></router-view>
     </transition>
     <commonFooter></commonFooter>
+    <!-- <commonHeader></commonHeader>
+    <message class="myblog-center"></message>
+    <commonFooter></commonFooter> -->
   </div>
 </template>
 
 <script>
   import commonHeader from '@/components/common/header';
   import commonFooter from '@/components/common/footer';
+  import message from '@/components/message/message';
 
   export default {
     name: 'App',
     components: {
       'commonHeader': commonHeader,
       'commonFooter': commonFooter,
+      message
     },
     data() {
       return {
@@ -93,7 +98,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-   
+
   }
 
   canvas {

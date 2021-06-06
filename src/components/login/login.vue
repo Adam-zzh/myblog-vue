@@ -43,6 +43,7 @@
             if (response.code == 200) {
               // * 存储token
               localStorage.setItem('token', response.data.token);
+              sessionStorage.setItem('user', JSON.stringify(response.data.data));
               this.$message({
                 showClose: true,
                 message: '登陆成功',

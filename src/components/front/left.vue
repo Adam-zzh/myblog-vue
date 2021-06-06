@@ -64,7 +64,6 @@
     },
     watch: {
       conditions: function (val) {
-        console.log(val)
         this.initArticel(this.pageSize, this.currentPage, val);
       }
     },

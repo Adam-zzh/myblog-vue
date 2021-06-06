@@ -61,7 +61,6 @@
     },
     methods: {
       handleNodeClick(data) {
-        console.log(data);
         this.$emit('renderTitle', data);
       }
     }

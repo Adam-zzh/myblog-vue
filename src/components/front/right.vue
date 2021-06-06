@@ -49,7 +49,6 @@
     },
     watch: {
       value1: function (val) {
-        console.log(val)
         let data = [];
 
         if (this.typeActiveIndex != -1) {

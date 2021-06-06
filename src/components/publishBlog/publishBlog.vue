@@ -146,7 +146,6 @@
     },
     methods: {
       addInput(ifHand) {
-        console.log(ifHand)
         this.article.articleLabels.push({
           ifHand
         });
