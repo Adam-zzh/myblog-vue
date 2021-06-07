@@ -90,9 +90,17 @@
       },
       setOnmessageMessage(event) {
         // 根据服务器推送的消息做自己的业务处理
-        this.messages = JSON.parse(event.data);
-        this.unReadNum = this.messages.length;
-        console.log('服务端返回：' + this.messages)
+        let msg = JSON.parse(event.data);
+        this.initMessage();
+        console.log('服务端返回：' + msg)
+        this.$notify({
+          title: '消息',
+          dangerouslyUseHTMLString: true,
+          message: msg.title,
+          duration: 5000,
+          type: 'success',
+          customClass: 'notifyClass'
+        });
       },
       setOncloseMessage() {
         console.log('WebSocket连接关闭    状态码：' + this.websocket.readyState)
@@ -109,7 +117,6 @@
         this.axios.get("/front/messageController/messages").then((response) => {
             this.messages = response;
             this.unReadNum = this.messages.length;
-            console.log(this.messages)
           },
           (error) => {
             console.log(error);
@@ -128,7 +135,7 @@
         this.initMessage();
         this.initWebSocket()
       }
-    
+
     },
 
     beforeDestroy() {
@@ -138,7 +145,7 @@
   }
 
 </script>
-<style scoped>
+<style>
   @import "../../../static/css/header.css";
 
   .iconfont {
@@ -194,6 +201,22 @@
     text-align: center;
     -webkit-border-radius: 24px;
     border-radius: 24px;
+  }
+
+  .el-notification {
+    top: 3.5rem !important;
+    background-color: #3c41e659 !important;
+  }
+
+  .el-notification__content {
+    color: #369;
+  }
+
+  .msg-comment {
+    color: #00dcff;
+  }
+  .el-notification__title{
+    color: darkorange
   }
 
 </style>
