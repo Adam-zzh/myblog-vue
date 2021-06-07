@@ -28,13 +28,19 @@
         </div>
         <div class="menus_item userInfo">
           <div class="alarm">
-            <i class="iconfont">&#xe6f3;</i>
+            <el-popover placement="bottom" title="消息" width="300" trigger="hover">
+              <div class="message-title" v-for="(item, index) of messages">
+                <div class="left"><img src="https://img1.baidu.com/it/u=2063594679,659410345&fm=26&fmt=auto&gp=0.jpg" class="userImg"/></div>
+                <div class="right" v-html="item.title"></div>
+              </div>
+              <div slot="reference"><i class="iconfont">&#xe6f3;</i></div>
+            </el-popover>
             <div class="iconRight" v-html="unReadNum" v-if="unReadNum>0">
             </div>
           </div>
         </div>
         <div class="menus_item userInfo">
-          <img src="https://img1.baidu.com/it/u=2063594679,659410345&fm=26&fmt=auto&gp=0.jpg" />
+          <img src="https://img1.baidu.com/it/u=2063594679,659410345&fm=26&fmt=auto&gp=0.jpg" class="userImg" />
         </div>
       </div>
 
@@ -117,6 +123,7 @@
         this.axios.get("/front/messageController/messages").then((response) => {
             this.messages = response;
             this.unReadNum = this.messages.length;
+            console.log(this.messages)
           },
           (error) => {
             console.log(error);
@@ -134,8 +141,9 @@
         this.websocket = new WebSocket('ws://localhost:8001/websocket/' + user.account);
         this.initMessage();
         this.initWebSocket()
+       
       }
-
+      
     },
 
     beforeDestroy() {
@@ -162,7 +170,7 @@
     background-color: #30313375;
   }
 
-  .userInfo img {
+  .userImg {
     width: 40px;
     height: 40px;
     border-radius: 20px;
@@ -215,8 +223,38 @@
   .msg-comment {
     color: #00dcff;
   }
-  .el-notification__title{
+
+  .el-notification__title {
     color: darkorange
+  }
+
+  .message-title{
+    min-height: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: flex-start;
+    background-color: rosybrown;
+    margin-top: 10px;
+  }
+
+  .message-title .left{
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+  }
+  .message-title .right{
+    height: 100%;
+    text-align: left;
+    text-indent: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-wrap: nowrap;
+    margin-left: 10px;
+    margin-right: 10px;
   }
 
 </style>
