@@ -6,6 +6,7 @@ import personalDocManager from '@/components/personalDocManager.vue'
 import login from '@/components/login/login.vue'
 import leaveMessage from '@/components/leaveMessage/leaveMessage';
 import blogDetail from '@/components/front/blogDetail/blogDetail';
+import message from '@/components/message/message';
 
 vue.use(vueRouter)
 
@@ -48,6 +49,14 @@ export default new vueRouter({
       path: '/login',
       name: 'login',
       component: login
+    },
+    {
+      path: '/message',
+      name: 'message',
+      component: message,
+      meta: {
+        requiresAuth: true // 添加该字段，表示进入这个路由是需要登录的
+      }
     }
   ]
 })

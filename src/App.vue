@@ -14,14 +14,12 @@
 <script>
   import commonHeader from '@/components/common/header';
   import commonFooter from '@/components/common/footer';
-  import message from '@/components/message/message';
 
   export default {
     name: 'App',
     components: {
       'commonHeader': commonHeader,
-      'commonFooter': commonFooter,
-      message
+      'commonFooter': commonFooter
     },
     data() {
       return {

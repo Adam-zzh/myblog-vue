@@ -2,7 +2,7 @@
   <div id="blog-message">
     <div class="messages">
       <div class="nav">
-        <el-radio-group v-model="radio">
+        <el-radio-group v-model="type">
           <el-radio :label="0">评论</el-radio>
           <el-radio :label="1">留言</el-radio>
           <el-radio :label="2">点赞</el-radio>
@@ -10,39 +10,63 @@
         </el-radio-group>
       </div>
       <div class="infinite-list msg-labels" v-infinite-scroll="load" style="overflow:auto">
-          <div class="infinite-list-item msg-label" v-for="i in count">
-            <div class="redCycle" v-if="ifRead"></div>
-            <div class="left">
-              <img src="https://img1.baidu.com/it/u=2063594679,659410345&fm=26&fmt=auto&gp=0.jpg" class="userImg" />
-            </div>
-            <div class="right">
-              <h3 class="title">大帝评论了你的文章 zzh来拜访了</h3>
-              <div class="content">
-                你的作品数据较昨天有所变化，赶紧来创作者中心看一下；现在体验专栏新功能还有大额京东卡拿，
-                点击查看：https://sourl.co/WrZWpx ；app用户请升级最新版本应用后在我的页面查看哟！
-              </div>
-              <h3 class="bottom">
-                2021-05-06
-              </h3>
-            </div>
+        <div class="infinite-list-item msg-label" v-for="(item, index) of messages">
+          <div class="redCycle" v-if="!item.ifRead"></div>
+          <div class="left">
+            <img src="https://img1.baidu.com/it/u=2063594679,659410345&fm=26&fmt=auto&gp=0.jpg" class="userImg" />
           </div>
+          <div class="right">
+            <h3 class="title" v-html="item.title"></h3>
+            <div class="content" v-html="item.content">
+            </div>
+            <h3 class="bottom">
+              {{item.creTime | dateStr('YYYY-MM-DD')}}
+            </h3>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 <script>
+  import {
+    dateFormat
+  } from '../util/dateUtil.js';
+
   export default {
     data() {
       return {
-        radio: 0,
-        ifRead: 1,
-        count: 5
+        type: 0,
+        messages: [],
+        page: 1,
+        pageSize: 3
+      }
+    },
+    filters: {
+      dateStr(value) {
+        return dateFormat(value);
       }
     },
     methods: {
       load() {
         // this.count += 2
+        let baseParam = {
+          "page": this.page,
+          "pageSize": this.pageSize
+        }
+        let type = this.$route.query.type || 0;
+        this.type = parseInt(type);
+        console.log(this.type)
+        this.axios.post("/front/messageController/messagesByType/" + type, baseParam).then((response) => {
+            this.messages = response.list;
+          },
+          (error) => {
+            console.log(error);
+          })
       }
+    },
+    mounted() {
+      this.load();
     },
   }
 
@@ -85,7 +109,7 @@
     box-shadow: -3px 2px 4px 0 #333;
     border-radius: 5px;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
   }
 
   .msg-labels .msg-label .redCycle {

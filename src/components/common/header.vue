@@ -28,9 +28,10 @@
         </div>
         <div class="menus_item userInfo">
           <div class="alarm">
-            <el-popover placement="bottom" title="消息" width="300" trigger="hover">
-              <div class="message-title" v-for="(item, index) of messages">
-                <div class="left"><img src="https://img1.baidu.com/it/u=2063594679,659410345&fm=26&fmt=auto&gp=0.jpg" class="userImg"/></div>
+            <el-popover placement="bottom" title="" width="250" trigger="hover" popper-class="popoverBackB">
+              <div class="message-title" v-for="(item, index) of messages" @click="openMessage(item.type)">
+                <div class="left"><img src="https://img1.baidu.com/it/u=2063594679,659410345&fm=26&fmt=auto&gp=0.jpg"
+                    class="userImg" /></div>
                 <div class="right" v-html="item.title"></div>
               </div>
               <div slot="reference"><i class="iconfont">&#xe6f3;</i></div>
@@ -128,6 +129,10 @@
           (error) => {
             console.log(error);
           })
+      },
+
+      openMessage(type) {
+        this.$router.push({path:'/message',query:{"type":type}});
       }
     },
 
@@ -141,9 +146,8 @@
         this.websocket = new WebSocket('ws://localhost:8001/websocket/' + user.account);
         this.initMessage();
         this.initWebSocket()
-       
       }
-      
+
     },
 
     beforeDestroy() {
@@ -228,16 +232,16 @@
     color: darkorange
   }
 
-  .message-title{
+  .message-title {
     min-height: 60px;
     height: 60px;
     display: flex;
     justify-content: flex-start;
-    background-color: rosybrown;
+    background-color: #3c41e659 !important;
     margin-top: 10px;
   }
 
-  .message-title .left{
+  .message-title .left {
     height: 100%;
     display: flex;
     flex-direction: row;
@@ -245,7 +249,8 @@
     justify-content: center;
     margin-left: 10px;
   }
-  .message-title .right{
+
+  .message-title .right {
     height: 100%;
     text-align: left;
     text-indent: 10px;
@@ -255,6 +260,17 @@
     flex-wrap: nowrap;
     margin-left: 10px;
     margin-right: 10px;
+  }
+
+  .popoverBackB {
+    /* #303133是el-tooltip的背景色 */
+    background: rgba(0, 0, 0, .5) !important;
+    color: yellowgreen;
+  }
+
+  .popoverBackB .popper__arrow::after {
+    /* 注意：placement位置不同，下面的属性不同 */
+    border-bottom-color: #3c41e659 !important;
   }
 
 </style>
