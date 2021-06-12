@@ -56,7 +56,8 @@
         defaultProps: {
           children: 'children',
           label: 'label'
-        }
+        },
+        input: ""
       };
     },
     methods: {

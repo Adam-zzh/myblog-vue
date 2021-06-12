@@ -29,10 +29,14 @@
         <div class="menus_item userInfo">
           <div class="alarm">
             <el-popover placement="bottom" title="" width="250" trigger="hover" popper-class="popoverBackB">
-              <div class="message-title" v-for="(item, index) of messages" @click="openMessage(item.type)">
+              <div class="message-title" v-for="(item, index) of messages" @click="opendialog(item)">
                 <div class="left"><img src="https://img1.baidu.com/it/u=2063594679,659410345&fm=26&fmt=auto&gp=0.jpg"
                     class="userImg" /></div>
                 <div class="right" v-html="item.title"></div>
+              </div>
+              <div class="queryMore">
+                <a href="javascript:void(0)" @click="openMessage"
+                  style="color: yellowgreen; padding-top: 10px;display: block;">查看更多>></a>
               </div>
               <div slot="reference"><i class="iconfont">&#xe6f3;</i></div>
             </el-popover>
@@ -44,13 +48,26 @@
           <img src="https://img1.baidu.com/it/u=2063594679,659410345&fm=26&fmt=auto&gp=0.jpg" class="userImg" />
         </div>
       </div>
-
     </div>
+
+    <!-- 点击消息 展示详细信息框 -->
+    <el-dialog title="消息" :visible.sync="dialogVisible" width="30%" class="hearDialog">
+      <div class="dialog-message">
+        <div class="left">
+          <img src="https://img1.baidu.com/it/u=2063594679,659410345&fm=26&fmt=auto&gp=0.jpg" class="userImg" />
+        </div>
+        <div class="right">
+          <span class="title" v-html="message.title"></span>
+          <MainContent :content="message.content"></MainContent>
+        </div>
+      </div>
+    </el-dialog>
   </div>
 
 </template>
 
 <script>
+  import MainContent from '../front/blogDetail/blog-content.vue';
   export default {
     name: "commonHeader",
     data() {
@@ -58,8 +75,13 @@
         scrollFlag: false,
         unReadNum: 0,
         websocket: {},
-        messages: []
+        messages: [],
+        message: {},
+        dialogVisible: false
       }
+    },
+    components: {
+      MainContent
     },
     methods: {
       handleScroll() {
@@ -130,9 +152,25 @@
             console.log(error);
           })
       },
-
-      openMessage(type) {
-        this.$router.push({path:'/message',query:{"type":type}});
+      openMessage() {
+        this.$router.push({
+          path: '/message',
+          query: {
+            "type": 0
+          }
+        });
+      },
+      opendialog(message) {
+        this.message = message
+        this.dialogVisible = true
+        this.axios.put("/front/messageController/message/" + message.id).then((response) => {
+            if (response.code == '200') {
+              this.initMessage();
+            }
+          },
+          (error) => {
+            console.log(error);
+          })
       }
     },
 
@@ -175,8 +213,8 @@
   }
 
   .userImg {
-    width: 40px;
-    height: 40px;
+    width: 40px !important;
+    height: 40px !important;
     border-radius: 20px;
   }
 
@@ -262,6 +300,7 @@
     margin-right: 10px;
   }
 
+  /* 设置popover背景色 */
   .popoverBackB {
     /* #303133是el-tooltip的背景色 */
     background: rgba(0, 0, 0, .5) !important;
@@ -271,6 +310,45 @@
   .popoverBackB .popper__arrow::after {
     /* 注意：placement位置不同，下面的属性不同 */
     border-bottom-color: #3c41e659 !important;
+  }
+
+  /* 设置消息对话框样式 */
+  .header .el-dialog__header,
+  .header .el-dialog__body {
+    background-color: #473ce6 !important;
+  }
+
+  .header .el-dialog__body {
+    padding: 0 20px !important;
+    padding-bottom: 30px !important;
+  }
+
+  .header .el-dialog__title {
+    color: orange;
+  }
+
+  .header .dialog-message {
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .header .dialog-message .left {
+    margin: 10px 10px;
+  }
+  .header .dialog-message .right {
+    width: calc(100% - 10px);
+  }
+
+  .header .dialog-message .title {
+    display: block;
+    color: #00dcff;
+    margin: 5px 10px 5px;
+    text-align: left;
+    text-indent: 5px;
+  }
+
+  .header .dialog-message .markdown-body {
+    color: yellow;
   }
 
 </style>

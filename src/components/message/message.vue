@@ -3,13 +3,13 @@
     <div class="messages">
       <div class="nav">
         <el-radio-group v-model="type">
-          <el-radio :label="0">评论</el-radio>
-          <el-radio :label="1">留言</el-radio>
-          <el-radio :label="2">点赞</el-radio>
-          <el-radio :label="3">系统</el-radio>
+          <el-radio :label="0" @click.native="load(0)">评论</el-radio>
+          <el-radio :label="1" @click.native="load(1)">留言</el-radio>
+          <el-radio :label="2" @click.native="load(2)">点赞</el-radio>
+          <el-radio :label="3" @click.native="load(3)">系统</el-radio>
         </el-radio-group>
       </div>
-      <div class="infinite-list msg-labels" v-infinite-scroll="load" style="overflow:auto">
+      <div class="infinite-list msg-labels" v-infinite-scroll="scrollLoad" style="overflow:auto">
         <div class="infinite-list-item msg-label" v-for="(item, index) of messages">
           <div class="redCycle" v-if="!item.ifRead"></div>
           <div class="left">
@@ -48,16 +48,30 @@
       }
     },
     methods: {
-      load() {
-        // this.count += 2
+      load(typeParam) {
+        let that = this;
         let baseParam = {
           "page": this.page,
           "pageSize": this.pageSize
         }
-        let type = this.$route.query.type || 0;
-        this.type = parseInt(type);
-        console.log(this.type)
-        this.axios.post("/front/messageController/messagesByType/" + type, baseParam).then((response) => {
+        if(typeParam != undefined){
+          this.type =  Number(typeParam)
+        }else{
+          this.type =  Number(this.$route.query.type || 0)
+        }
+        this.axios.post(`/front/messageController/messagesByType/${this.type}`, baseParam).then((response) => {
+            this.messages = response.list;
+          },
+          (error) => {
+            console.log(error);
+          })
+      },
+      scrollLoad(){
+        let baseParam = {
+          "page": this.page,
+          "pageSize": this.pageSize
+        }
+        this.axios.post(`/front/messageController/messagesByType/${this.type}`, baseParam).then((response) => {
             this.messages = response.list;
           },
           (error) => {
@@ -103,7 +117,7 @@
     height: 170px;
     min-height: 150px;
     max-height: 300px;
-    background-color: #800080c4;
+    background-color: #3c41e6e0 !important;
     margin-top: 20px;
     /* box-shadow: -3px 5px 5px #333; */
     box-shadow: -3px 2px 4px 0 #333;
@@ -123,7 +137,7 @@
   }
 
   .msg-labels .msg-label .left {
-    width: 30%;
+    margin: 0 40px;
     height: 100%;
     display: flex;
     flex-direction: row;
@@ -132,6 +146,7 @@
   }
 
   .msg-labels .msg-label .right {
+    width: calc(100% - 40px);
     padding: 10px 20px;
     padding-left: 0;
     text-align: left;
@@ -146,7 +161,8 @@
   }
 
   .msg-label .right .title {
-    font-size: 20px;
+    font-size: 18px;
+    color: orange;
   }
 
   .msg-label .right .content {
@@ -154,10 +170,15 @@
     font-size: 16px;
     border: 1px solid rgba(0, 0, 0, .1);
     padding: 10px;
+    color: yellow;
+  }
+  .msg-label .right .title .msg-comment{
+    color: orange;
   }
 
   .msg-label .right .bottom {
     font-size: 14px;
+    color: burlywood;
   }
 
   .userImg {
