@@ -2,7 +2,9 @@
   <div class="editCenter">
     <div id="leaveMessage">
       <el-form :model="leaveMessage" :rules="rules" ref="leaveMessage">
-        <h3>留言板</h3>
+        <a id="_1">
+          <h3>留言板</h3>
+        </a>
         <div class="row">
           <label><em>* </em>类别：</label>
           <el-radio-group v-model="leaveMessage.type" v-for="(item,index) of types" ::key="index">
@@ -15,8 +17,8 @@
               <label><em>* </em>留言内容：</label>
             </label>
             <mavon-editor :subfield="toolbars.subfield" :toolbarsFlag="toolbars.toolbarsFlag"
-              :codeStyle="toolbars.codeStyle" v-model="leaveMessage.content" placeholder="你是我一生只会遇见一次的惊喜 ..."
-              class="myTextArea" />
+              :codeStyle="toolbars.codeStyle" v-model="leaveMessage.content"
+              :placeholder="placeholder" class="myTextArea" :ishljs="true" />
           </el-form-item>
         </div>
         <el-form-item prop="concat">
@@ -31,44 +33,56 @@
         </div>
       </el-form>
 
+      <!-- <a :href="'#_'+hrefPos" style="display: none;" v-click="date">{{date}}</a> -->
+      <a href="#_1404027603815370752" v-click="date">sdada</a>
+
       <div class="showLeaveMsg">
         <el-divider>全部留言</el-divider>
-
-        <div class="infinite-list" v-infinite-scroll="load" style="overflow:auto">
-          <div v-for="(item, index) of leaveMessages" class="infinite-list-item lefMsg-item">
+        <div class="infinite-list" v-infinite-scroll="loadLefMsg" style="overflow:auto">
+          <div v-for="(item, index) of leaveMessages" ::key="index" class="infinite-list-item lefMsg-item">
             <div class="lefMsg-top">
               <div class="left">
-                <img src="https://img1.baidu.com/it/u=2063594679,659410345&fm=26&fmt=auto&gp=0.jpg"
-                  class="lefMsg-userIcon" />
+                <a :id="'_'+item.id">
+                  <img src="https://img1.baidu.com/it/u=2063594679,659410345&fm=26&fmt=auto&gp=0.jpg"
+                    class="lefMsg-userIcon" />
+                </a>
               </div>
               <div class="right">
-                <h4 class="lefMsg-userName">菩提花</h4>
+                <h4 class="lefMsg-userName">{{item.sourceName}}</h4>
                 <h4 class="lefMsg-label">
-                  <span class="lefMsg-date">2021-06-07 </span>
-                  <span class="lefMsg-type">交个朋友</span>
+                  <span class="lefMsg-date">{{item.creTime | dateStr('YYYY-MM-DD')}} </span>
+                  <span class="lefMsg-type">{{item.typeName}}</span>
                 </h4>
               </div>
             </div>
             <MainContent :content="item.content"></MainContent>
-            <div class="lefMsg-bottom"><a href="javascript:void(0)">回复</a></div>
-
+            <div class="lefMsg-bottom"><a href="javascript:void(0)" @click="reply(item)"
+                v-if="userName != item.sourceName">回复</a></div>
             <!-- 存在回复内容 -->
             <div v-for="(item1, index) of item.children" class="lefMsg-item-children" v-if="item.children">
               <div class="lefMsg-top">
                 <div class="left">
-                  <img src="https://img1.baidu.com/it/u=2063594679,659410345&fm=26&fmt=auto&gp=0.jpg"
-                    class="lefMsg-userIcon" />
+                  <a :id="'_'+item1.id">
+                    <img src="https://img1.baidu.com/it/u=2063594679,659410345&fm=26&fmt=auto&gp=0.jpg"
+                      class="lefMsg-userIcon" />
+                  </a>
                 </div>
                 <div class="right">
-                  <h4 class="lefMsg-userName">菩提花</h4>
+                  <h4 class="lefMsg-userName">
+                    {{item1.sourceName}}
+                    <span class="lefMsg-targetName" v-if="item1.targetName">
+                      → {{item1.targetName}}
+                    </span>
+                  </h4>
                   <h4 class="lefMsg-label">
-                    <span class="lefMsg-date">2021-06-07 </span>
-                    <span class="lefMsg-type">交个朋友</span>
+                    <span class="lefMsg-date">{{item1.creTime | dateStr('YYYY-MM-DD')}} </span>
+                    <span class="lefMsg-type">{{item1.typeName}}</span>
                   </h4>
                 </div>
               </div>
-              <MainContent :content="item.content"></MainContent>
-              <div class="lefMsg-bottom"><a href="javascript:void(0)">回复</a></div>
+              <MainContent :content="item1.content"></MainContent>
+              <div class="lefMsg-bottom"><a href="javascript:void(0)" @click="reply(item1)"
+                  v-if="userName != item1.sourceName">回复</a></div>
             </div>
           </div>
         </div>
@@ -78,9 +92,15 @@
 </template>
 <script>
   import MainContent from '../front/blogDetail/blog-content.vue';
+  import {
+    dateFormat
+  } from '../util/dateUtil.js';
   export default {
     data() {
       return {
+        userName: JSON.parse(sessionStorage.getItem('user')).userName,
+        date: null,
+        hrefPos: '1',
         types: [{
           id: '1',
           value: '1',
@@ -101,8 +121,9 @@
         toolbars: {
           toolbarsFlag: false,
           subfield: false, // 单双栏模式
-          codeStyle: 'tomorrow-night',
-          code: true
+          codeStyle: 'atelier-cave-dark',
+          code: true,
+          autofocus: true
         },
         leaveMessage: {
           type: '1',
@@ -128,26 +149,28 @@
             trigger: 'blur'
           }]
         },
-        leaveMessages: [{
-          type: '1',
-          typeName: '产品建议',
-          concat: '',
-          targetId: 0,
-          pid: 0,
-          content: '我是内容',
-          children: [{
-            type: '1',
-            typeName: '产品建议',
-            concat: '',
-            targetId: 0,
-            pid: 0,
-            content: '我是内容'
-          }]
-        }]
+        leaveMessages: [],
+        page: 1,
+        pageSize: 3,
+        placeholder: '你是我一生只会遇见一次的惊喜 ...'
+      }
+    },
+    directives: {
+      click: {
+        update(el,binding) {
+          if (binding.value != binding.oldValue) {
+            el.click();
+          }
+        }
       }
     },
     components: {
       MainContent
+    },
+    filters: {
+      dateStr(value) {
+        return dateFormat(value);
+      }
     },
     methods: {
       publishLeaveMsg(formData) {
@@ -169,6 +192,10 @@
                   message: '留言成功',
                   type: 'success'
                 });
+                this.placeholder = "你是我一生只会遇见一次的惊喜 ..."
+                this.loadLefMsg();
+                this.hrefPos = response.data.id
+                this.date = new Date();
               })
               .catch((error) => {
                 this.$message({
@@ -179,7 +206,29 @@
               })
           }
         });
+      },
+      loadLefMsg() {
+        let baseParam = {
+          "page": this.page,
+          "pageSize": this.pageSize
+        }
+        this.axios.post(`/front/leaveMessage/public/leaveMessageList`, baseParam).then((response) => {
+            this.leaveMessages = response.list;
+          },
+          (error) => {
+            console.log(error);
+          })
+      },
+      reply(item) {
+        this.leaveMessage.targetId = item.sourceId;
+        this.leaveMessage.pid = item.id;
+        this.placeholder = "回复" + item.sourceName + "的留言";
+        this.toolbars.autofocus = true
+        this.date = new Date();
       }
+    },
+    mounted() {
+      this.loadLefMsg();
     },
   }
 
@@ -226,7 +275,7 @@
     margin-bottom: 10px;
   }
 
-  #leaveMessage .lefMsg-item .lefMsg-item-children{
+  #leaveMessage .lefMsg-item .lefMsg-item-children {
     padding: 5px 20px;
     border: 1px solid floralwhite;
     background-color: #befdcc2e;
