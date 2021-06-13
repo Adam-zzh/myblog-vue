@@ -33,8 +33,7 @@
         </div>
       </el-form>
 
-      <!-- <a :href="'#_'+hrefPos" style="display: none;" v-click="date">{{date}}</a> -->
-      <a href="#_1404027603815370752" v-click="date">sdada</a>
+      <a :href="'#_'+hrefPos" style="display: none;" v-click="date">{{date}}</a>
 
       <div class="showLeaveMsg">
         <el-divider>全部留言</el-divider>
