@@ -18,6 +18,11 @@ import VueAxios from 'vue-axios';
 // makedown编辑器
 import mavonEditor from 'mavon-editor';
 
+//文件上传组件
+import uploader from 'vue-simple-uploader'
+//qs.stringify()将对象 序列化成URL的形式，以&进行拼接
+import qs from 'qs'
+
 
 //全局为axios添加request和response的拦截器。用于jwt token验证
 import http from '../http'
@@ -36,6 +41,9 @@ Vue.use(vueSwiper)
 Vue.use(ElementUI)
 Vue.use(VueAxios, axios)
 Vue.use(mavonEditor)
+Vue.use(uploader)
+Vue.use(qs)
+
 // Vue.use(VModal)
 
 // 配置axios请求基本地址

@@ -7,6 +7,7 @@ import login from '@/components/login/login.vue'
 import leaveMessage from '@/components/leaveMessage/leaveMessage';
 import blogDetail from '@/components/front/blogDetail/blogDetail';
 import message from '@/components/message/message';
+import uploader from '@/components/upload/upload.vue';
 
 vue.use(vueRouter)
 
@@ -57,6 +58,11 @@ export default new vueRouter({
       meta: {
         requiresAuth: true // 添加该字段，表示进入这个路由是需要登录的
       }
-    }
+    },
+    {
+      path: '/upload',
+      name: 'upload',
+      component: uploader
+    },
   ]
 })

@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <commonHeader></commonHeader>
+   <commonHeader></commonHeader>
     <transition>
         <router-view class="myblog-center"></router-view>
     </transition>
@@ -8,6 +8,9 @@
     <!-- <commonHeader></commonHeader>
     <message class="myblog-center"></message>
     <commonFooter></commonFooter> -->
+
+    <!-- 测试文件上传功能 -->
+    <!-- <my-upload class="myblog-center"></my-upload> -->
   </div>
 </template>
 

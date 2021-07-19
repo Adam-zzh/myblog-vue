@@ -30,6 +30,7 @@ module.exports = {
       '/': {
         target: 'http://localhost:8021',
         changeOrigin: true,
+        timeout: 6*60*1000,
         pathRewrite: {'/': '/'}
       }
     },
