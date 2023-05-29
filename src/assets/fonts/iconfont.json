@@ -1,0 +1,16 @@
+{
+  "id": "2495324",
+  "name": "aaa",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "10708733",
+      "name": "publish",
+      "font_class": "publish",
+      "unicode": "e60b",
+      "unicode_decimal": 58891
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+#main{
+    /* margin: 0.5rem 3.2rem 0; */
+    color: #666;
+    /* position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,0); */
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    min-width: 65%;
+}
+
+
