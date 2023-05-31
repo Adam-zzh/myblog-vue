@@ -41,7 +41,7 @@ let routes = [{
   },
   {
     path: '/leaveMessage',
-    name: '留言',
+    name: 'MessageBoard',
     component: leaveMessage
   },
   {
