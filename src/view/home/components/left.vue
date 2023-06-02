@@ -87,7 +87,7 @@
           baseParam.conditions = n3;
         }
         this.axios
-          .post('/front/articleController/public/articles', baseParam)
+          .post('/font/articleController/public/articles', baseParam)
           .then((response) => {
             this.list = response.list
             this.totalCount = response.total
@@ -100,6 +100,6 @@
 
 </script>
 <style scoped>
-  @import url("../../../static/css/left.css");
+  @import url("static/css/left.css");
 
 </style>

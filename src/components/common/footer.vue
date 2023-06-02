@@ -1,5 +1,5 @@
 <template>
-    <div id="pt-footer">
+    <div id="footer">
         ©copyright Made By 菩提花 At 2021
     </div>
 </template>
@@ -12,6 +12,3 @@
         }
     }
 </script>
-<style scoped>
-    @import url("../../../static/css/footer.css");
-</style>

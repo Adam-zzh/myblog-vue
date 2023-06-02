@@ -90,7 +90,7 @@
   </div>
 </template>
 <script>
-    import MainContent from '../front/blogDetail/blog-content.vue';
+    import MainContent from '../font/blogDetail/blog-content.vue';
     import {
         dateFormat
     } from '../util/dateUtil.js';
@@ -184,7 +184,7 @@
                     } else {
                         //发布文章
                         this.axios
-                            .post("/front/leaveMessage/leaveMessage", this.leaveMessage)
+                            .post("/font/leaveMessage/leaveMessage", this.leaveMessage)
                             .then((response) => {
                                 this.$message({
                                     showClose: true,

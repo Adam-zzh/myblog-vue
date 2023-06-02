@@ -1,10 +1,10 @@
 <template>
 
   <div class="header" :class="{'header-scrolled':scrollFlag}">
-    <div class="header-enditCenter">
+    <div class="content">
       <!-- 自定制logo -->
-      <div class="header-logo" :class="{'header-logo-scrolled':scrollFlag}">
-        <span class="header-logo-icon">
+      <div class="logo" :class="{'header-logo-scrolled':scrollFlag}">
+        <span class="icon">
           <!-- <img src="/static/images/page_header.jpg"/> -->
         </span>
         <span class="text">
@@ -143,7 +143,7 @@
         }
       },
       initMessage() {
-        this.axios.get("/front/messageController/messages").then((response) => {
+        this.axios.get("/font/messageController/messages").then((response) => {
             this.messages = response;
             this.unReadNum = this.messages.length;
             console.log(this.messages)
@@ -163,7 +163,7 @@
       opendialog(message) {
         this.message = message
         this.dialogVisible = true
-        this.axios.put("/front/messageController/message/" + message.id).then((response) => {
+        this.axios.put("/font/messageController/message/" + message.id).then((response) => {
             if (response.code == '200') {
               this.initMessage();
             }
@@ -196,8 +196,6 @@
 
 </script>
 <style>
-  @import "../../../static/css/header.css";
-
   .iconfont {
     font-size: 22px;
     color: #369;
@@ -253,22 +251,6 @@
     border-radius: 24px;
   }
 
-  .el-notification {
-    top: 3.5rem !important;
-    background-color: #3c41e659 !important;
-  }
-
-  .el-notification__content {
-    color: #369;
-  }
-
-  .msg-comment {
-    color: #00dcff;
-  }
-
-  .el-notification__title {
-    color: darkorange
-  }
 
   .message-title {
     min-height: 60px;
@@ -300,36 +282,16 @@
     margin-right: 10px;
   }
 
-  /* 设置popover背景色 */
-  .popoverBackB {
-    /* #303133是el-tooltip的背景色 */
-    background: rgba(0, 0, 0, .5) !important;
-    color: yellowgreen;
-  }
-
   .popoverBackB .popper__arrow::after {
     /* 注意：placement位置不同，下面的属性不同 */
     border-bottom-color: #3c41e659 !important;
   }
 
   /* 设置消息对话框样式 */
-  .header .el-dialog__header,
-  .header .el-dialog__body {
-    background-color: #473ce6 !important;
-  }
-
-  .header .el-dialog__body {
-    padding: 0 20px !important;
-    padding-bottom: 30px !important;
-  }
-
-  .header .el-dialog__title {
-    color: orange;
-  }
-
   .header .dialog-message {
     display: flex;
     justify-content: flex-start;
+    color: yellow;
   }
 
   .header .dialog-message .left {
@@ -346,9 +308,4 @@
     text-align: left;
     text-indent: 5px;
   }
-
-  .header .dialog-message .markdown-body {
-    color: yellow;
-  }
-
 </style>

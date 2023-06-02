@@ -21,7 +21,7 @@
                       <el-form-item prop="articleLabels">
                         <el-col :span="8" v-for="(item, index) in article.articleLabels" :key="index">
                           <el-input placeholder="标签" v-model="item.value" clearable v-if="item.ifHand=='1'" />
-                          <el-cascader :options="options" v-if="item.ifHand=='0'" clearable :show-all-levels="false" @click.native="renderLabel" 
+                          <el-cascader :options="options" v-if="item.ifHand=='0'" clearable :show-all-levels="false" @click.native="renderLabel"
                           @change="item.labelId =  $event[$event.length-1]">
                             <template slot-scope="{ node, data }">
                               <span>{{ data.label }}</span>
@@ -190,7 +190,7 @@
           } else {
             //发布文章
             this.axios
-              .post("/front/articleController/saveOrUpdArticle", this.article)
+              .post("/font/articleController/saveOrUpdArticle", this.article)
               .then((response) => {
                 this.$message({
                   showClose: true,
@@ -211,7 +211,7 @@
       },
       renderLabel() {
         this.axios
-          .get("/front/labelController/labels")
+          .get("/font/labelController/labels")
           .then((response) => {
             this.options = response.data;
           })

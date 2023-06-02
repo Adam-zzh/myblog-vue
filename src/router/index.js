@@ -1,7 +1,7 @@
-import commonFront from '@/components/front';
+import home from '@/view/home';
 import publishBlog from '@/components/publishBlog/publishBlog'
 import personalDocManager from '@/components/personalDocManager.vue'
-import login from '@/components/login/login.vue'
+import login from '@/view/login'
 import leaveMessage from '@/components/leaveMessage/leaveMessage';
 import blogDetail from '@/components/front/blogDetail/blogDetail';
 import message from '@/components/message/message';
@@ -10,7 +10,7 @@ import uploader from '@/components/upload/upload.vue';
 let routes = [{
   path: '/',
   name: '首页',
-  component: commonFront,
+  component: home,
   meta: {
     nonRequiresAuth: true
   }
@@ -24,7 +24,7 @@ let routes = [{
 }, {
   path: '/front',
   name: '首页',
-  component: commonFront,
+  component: home,
   meta: {
     nonRequiresAuth: true
   }

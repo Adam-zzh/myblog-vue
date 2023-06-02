@@ -184,7 +184,7 @@
           } else {
             //发布文章
             this.axios
-              .post("/front/leaveMessage/leaveMessage", this.leaveMessage)
+              .post("/font/leaveMessage/leaveMessage", this.leaveMessage)
               .then((response) => {
                 this.$message({
                   showClose: true,

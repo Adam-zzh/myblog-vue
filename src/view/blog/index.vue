@@ -190,7 +190,7 @@
                     } else {
                         //发布文章
                         this.axios
-                            .post("/front/articleController/saveOrUpdArticle", this.article)
+                            .post("/font/articleController/saveOrUpdArticle", this.article)
                             .then((response) => {
                                 this.$message({
                                     showClose: true,
@@ -211,7 +211,7 @@
             },
             renderLabel() {
                 this.axios
-                    .get("/front/labelController/labels")
+                    .get("/font/labelController/labels")
                     .then((response) => {
                         this.options = response.data;
                     })

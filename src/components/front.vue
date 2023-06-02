@@ -35,9 +35,9 @@
         //   // 参数选项,显示小点
         //   pagination: ".swiper-pagination",
         //   paginationClickable: true,
-        //   //修改swiper自己或子元素时，自动初始化swiper 
+        //   //修改swiper自己或子元素时，自动初始化swiper
         //   observer: true,
-        //   //修改swiper的父元素时，自动初始化swiper 
+        //   //修改swiper的父元素时，自动初始化swiper
         //   observeParents: true,
         //   //循环
         //   loop: true,
@@ -70,8 +70,8 @@
 
 </script>
 <style>
-  /* #front{
-   background-color: #2c3e50; 
+  /* #font{
+   background-color: #2c3e50;
 } */
   .bg-front {
     background: url('/static/images/personal/boy.png') top center no-repeat;

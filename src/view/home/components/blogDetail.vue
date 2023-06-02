@@ -98,7 +98,7 @@
       initDetail(){
         let id = this.$route.params.articleId
         this.axios
-          .get('/front/articleController/public/article/'+id)
+          .get('/font/articleController/public/article/'+id)
           .then((response) => {
             this.article = response.data
 
@@ -210,6 +210,6 @@
   .baseData .type, .baseData .tag{
     display: inline-block;
   }
-  
+
 
 </style>

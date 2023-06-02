@@ -81,7 +81,7 @@
     methods: {
       getRightPanel() {
         this.axios
-          .get('/front/labelController/public/rightPanel')
+          .get('/font/labelController/public/rightPanel')
           .then((response) => {
             this.labels = response.data.labels
             this.types = response.data.types

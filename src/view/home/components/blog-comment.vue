@@ -18,7 +18,7 @@
           <div class="header">
             <img :src="item1.userIcon" class="commnet-img" width="30px" height="30px">
             <span class="userName thirdFont" v-html="item1.sourceName"></span>
-           
+
             <span class="toUser userName thirdFont" v-if="item1.targetName && item1.targetName!=item1.sourceName" style="padding-left: 8px;margin: 0px;">➡
               {{item1.targetName}}</span>
           </div>
@@ -55,7 +55,7 @@
       publishComment(commentContent, articleId) {
         this.comment.content = commentContent;
         this.comment.articleId = articleId;
-        this.axios.post("/front/commentController/comment", this.comment).then((response) => {
+        this.axios.post("/font/commentController/comment", this.comment).then((response) => {
             if (response.code == '200') {
               this.inintComments();
               this.$message({
@@ -107,7 +107,7 @@
           "page": 1,
           "pageSize": 100
         }
-        this.axios.post("/front/commentController/public/comments", baseParam).then((response) => {
+        this.axios.post("/font/commentController/public/comments", baseParam).then((response) => {
             this.comments = response.data.list;
             this.totalComment = response.data.total;
           },
