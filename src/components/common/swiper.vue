@@ -26,13 +26,14 @@
     },
     data() {
       return {
+        banners: ['/static/images/8.jpg', '/static/images/9.jpg', '/static/images/11.jpg', '/static/images/12.jpg'],
         swiperOption: {
           // 参数选项,显示小点
           pagination: ".swiper-pagination",
           paginationClickable: true,
-          //修改swiper自己或子元素时，自动初始化swiper 
+          //修改swiper自己或子元素时，自动初始化swiper
           observer: true,
-          //修改swiper的父元素时，自动初始化swiper 
+          //修改swiper的父元素时，自动初始化swiper
           observeParents: true,
           //循环
           loop: true,
