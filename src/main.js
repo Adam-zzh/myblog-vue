@@ -17,6 +17,7 @@ import './assets/fonts/iconfont.css';
 import 'element-ui/lib/theme-chalk/display.css';
 import 'element-ui/lib/theme-chalk/index.css';
 import 'swiper/dist/css/swiper.css'
+import 'github-markdown-css/github-markdown.css'
 
 Vue.config.productionTip = false
 

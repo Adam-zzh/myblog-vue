@@ -147,5 +147,39 @@ canvas {
 
 /*分页空间样式*/
 .pagination-custom{
+}
 
+/*markdown样式*/
+.markdown-body{
+  box-sizing: border-box;
+  min-width: 200px;
+  max-width: 98%;
+  box-shadow: 2px 4px 6px gray;
+  padding: 40px 15px 45px 20px;
+  margin: 0 auto 100px;
+  color: blanchedalmond;
+  max-width: 980px;
+}
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6
+{
+  color: #e6a23c;
+}
+
+
+.firstFont{
+  font-size: 18px;
+}
+.secondFont{
+  font-size: 16px;
+}
+.thirdFont{
+  font-size: 14px;
+}
+.forthFont{
+  font-size: 12px;
 }

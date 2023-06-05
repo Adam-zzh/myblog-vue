@@ -1,3 +1,4 @@
+/*列表页*/
 #main{
   /* margin: 0.5rem 3.2rem 0; */
   color: #666;
@@ -158,4 +159,125 @@
       }
     }
   }
+}
+
+/*详情页*/
+#detail{
+  color: blanchedalmond;
+  overflow-y: scroll;
+  min-height: 100vh;
+  .bg{
+    background: url('/static/images/personal/boy.png') top center no-repeat;
+    background-size: cover;
+    background-size: cover;
+    width: 100%;
+    height: 20rem;
+  }
+  .main{
+    height: calc(100vh - 8.6rem - 20px);
+    display: flex;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+    .catalog{
+      background-color: #ecf5ff1a;
+      width: 360px;
+      height: 100%;
+      border: 1px solid #232323;
+      padding-top: 20px;
+      padding-left: 10px;
+      text-align: left;
+      max-height: 600px;
+      overflow: scroll;
+      border-radius: 6px;
+      margin-left: 20px;
+      margin-right: 20px;
+    }
+    .article {
+      background-color: rgba(76, 43, 226, 0.5);
+      width: 100%;
+      height: 100%;
+      overflow: scroll;
+      padding: 20px;
+      border: 1px solid #232323;
+      .lineDescription{
+        display: flex;
+        justify-content: space-around;
+        font-size: 14px;
+        li{
+          list-style-type: none;
+          /* float: left; */
+          display: inline-block;
+        }
+        .type,
+        .tag{
+          display: inline-block;
+        }
+      }
+      .sidebar{
+        /* background-color: yellowgreen; */
+        background-color: #ecf5ff1a;
+        width: 360px;
+        height: 100%;
+        overflow: hidden;
+        padding: 20px;
+        margin-left: 20px;
+        margin-right: 20px;
+        border: 1px solid #232323;
+        position: relative;
+        .blogComment{
+          max-height: calc(100% - 67px);
+          height: calc(100% - 67px);
+          h4 {
+            padding: 0 auto;
+            margin: 0 0 10px;
+          }
+          .commentContents{
+            overflow: auto;
+            max-height: 100%;
+            .commentContents::-webkit-scrollbar {
+              display: none;
+            }
+            .commentContent{
+              .activeClass {
+                background-color: rgba(0, 0, 0, 0.5);
+                color: yellowgreen;
+              }
+              .innerComment {
+                padding-left: 20px;
+              }
+              .header {
+                display: flex;
+                .userName {
+                  display: inline-block;
+                  height: 30px;
+                  line-height: 30px;
+                  margin-left: 15px;
+                }
+                .comment-img {
+                  border-radius: 15px;
+                }
+              }
+              .content {
+                text-align: left;
+                padding: 5px 5px 5px 30px;
+              }
+            }
+          }
+        }
+        .publishComment {
+          position: absolute;
+          bottom: 0;
+          left: 2px;
+          right: 2px;
+          display: flex;
+          justify-content: space-between;
+          textarea {
+            resize: none;
+          }
+        }
+      }
+    }
+  }
+
 }
