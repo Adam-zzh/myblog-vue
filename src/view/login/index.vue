@@ -4,7 +4,7 @@
                :close-on-press-escape="true" :before-close="closeCallback()" class="login-dialog">
       <div class="login-left">
         <h1 style="color: black; letter-spacing: 4px;">登陆</h1>
-        <el-form ref="form" :model="formData" size="small" label-width="100px">
+        <el-form ref="form" :model="formData" :rules="rules" size="small" label-width="100px">
           <el-row>
             <el-form-item label="用户名：">
               <el-input class="search-input" v-model="formData.account"/>
@@ -31,7 +31,19 @@
                 //是否可以关闭
                 dialog: {visible: true, title: ''},
                 //表单数据
-                formData: {account: '', password: '',}
+                formData: {account: '', password: '',},
+                rules: {
+                    account: [{
+                        required: true,
+                        message: '请输入账号',
+                        trigger: 'blur'
+                    }],
+                    password: [{
+                        required: true,
+                        message: '请输入密码',
+                        trigger: 'blur'
+                    }],
+                },
             }
         },
         mounted: function () {
