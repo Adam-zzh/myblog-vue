@@ -42,8 +42,6 @@
                         </el-dropdown>
                       </el-col>
                     </el-row>
-                    </el-input>
-
                   </div>
                   <div id="publish-popver-button">
                     <el-button type="primary" plain @click="publishArticle('publishBlog')">确定并发布</el-button>
@@ -64,7 +62,6 @@
       <mavon-editor :toolbars="toolbars" @imgAdd="handleEditorImgAdd" @imgDel="handleEditorImgDel" @change="change"
         ref=md />
     </div>
-  </div>
   </div>
 </template>
 <script>
