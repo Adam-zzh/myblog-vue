@@ -4,17 +4,17 @@ import axios from 'axios'
 import QS from 'qs';
 // vuex
 import store from '../store/index'
-
+let _baseURL;
 //这一步的目的是判断出当前是开发环境还是生成环境，方法不止一种，达到目的就行
-// if(process.env.NODE_ENV=="development"){
-//   baseURL=''
-// }else{
-//   baseURL=''
-// }
+if(process.env.NODE_ENV=="development"){
+  _baseURL=''
+}else{
+  _baseURL=''
+}
 
 // 使用自定义的配置文件发送请求
 const instance = axios.create({
-  baseURL: '',
+  baseURL: _baseURL,
   timeout: 80000,
   headers: {
     // 'Content-Type': 'application/json;charset=UTF-8',

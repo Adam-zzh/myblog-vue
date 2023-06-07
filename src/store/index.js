@@ -14,3 +14,8 @@ export default new Vuex.Store({
     ...modules,
   }
 })
+
+/*
+this.$store.commit("login/setToken", localStorage.getItem("token"));
+this.$store.dispatch('login/getToken');
+*/
